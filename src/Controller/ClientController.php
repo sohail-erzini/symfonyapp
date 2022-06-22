@@ -13,8 +13,6 @@ class ClientController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('client/index.html.twig', [
-            'controller_name' => 'ClientController',
-        ]);
+        return $this->render('base.html.twig');
     }
 }
