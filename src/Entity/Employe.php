@@ -84,9 +84,15 @@ class Employe
      */
     private $employeProjetRoles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Tache::class, mappedBy="employe")
+     */
+    private $taches;
+
     public function __construct()
     {
         $this->employeProjetRoles = new ArrayCollection();
+        $this->taches = new ArrayCollection();
     }
 
    
@@ -267,6 +273,36 @@ class Employe
             // set the owning side to null (unless already changed)
             if ($employeProjetRole->getEmploye() === $this) {
                 $employeProjetRole->setEmploye(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tache>
+     */
+    public function getTaches(): Collection
+    {
+        return $this->taches;
+    }
+
+    public function addTach(Tache $tach): self
+    {
+        if (!$this->taches->contains($tach)) {
+            $this->taches[] = $tach;
+            $tach->setEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTach(Tache $tach): self
+    {
+        if ($this->taches->removeElement($tach)) {
+            // set the owning side to null (unless already changed)
+            if ($tach->getEmploye() === $this) {
+                $tach->setEmploye(null);
             }
         }
 

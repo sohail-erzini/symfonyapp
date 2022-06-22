@@ -27,6 +27,11 @@ class Livrable
      */
     private $doc;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Tache::class, inversedBy="livrables")
+     */
+    private $Tache;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Livrable
     public function setDoc($doc): self
     {
         $this->doc = $doc;
+
+        return $this;
+    }
+
+    public function getTache(): ?Tache
+    {
+        return $this->Tache;
+    }
+
+    public function setTache(?Tache $Tache): self
+    {
+        $this->Tache = $Tache;
 
         return $this;
     }

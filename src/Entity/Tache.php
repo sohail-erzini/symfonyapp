@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TacheRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,26 @@ class Tache
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $dateModif;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Employe::class, inversedBy="taches")
+     */
+    private $employe;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Phase::class, inversedBy="taches")
+     */
+    private $phase;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Livrable::class, mappedBy="Tache")
+     */
+    private $livrables;
+
+    public function __construct()
+    {
+        $this->livrables = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +159,60 @@ class Tache
     public function setDateModif(?string $dateModif): self
     {
         $this->dateModif = $dateModif;
+
+        return $this;
+    }
+
+    public function getEmploye(): ?Employe
+    {
+        return $this->employe;
+    }
+
+    public function setEmploye(?Employe $employe): self
+    {
+        $this->employe = $employe;
+
+        return $this;
+    }
+
+    public function getPhase(): ?Phase
+    {
+        return $this->phase;
+    }
+
+    public function setPhase(?Phase $phase): self
+    {
+        $this->phase = $phase;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livrable>
+     */
+    public function getLivrables(): Collection
+    {
+        return $this->livrables;
+    }
+
+    public function addLivrable(Livrable $livrable): self
+    {
+        if (!$this->livrables->contains($livrable)) {
+            $this->livrables[] = $livrable;
+            $livrable->setTache($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivrable(Livrable $livrable): self
+    {
+        if ($this->livrables->removeElement($livrable)) {
+            // set the owning side to null (unless already changed)
+            if ($livrable->getTache() === $this) {
+                $livrable->setTache(null);
+            }
+        }
 
         return $this;
     }

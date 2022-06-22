@@ -64,9 +64,15 @@ class Projet
      */
     private $client;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Phase::class, mappedBy="projet")
+     */
+    private $phases;
+
     public function __construct()
     {
         $this->projetEmployeRoles = new ArrayCollection();
+        $this->phases = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -196,6 +202,36 @@ class Projet
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Phase>
+     */
+    public function getPhases(): Collection
+    {
+        return $this->phases;
+    }
+
+    public function addPhase(Phase $phase): self
+    {
+        if (!$this->phases->contains($phase)) {
+            $this->phases[] = $phase;
+            $phase->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhase(Phase $phase): self
+    {
+        if ($this->phases->removeElement($phase)) {
+            // set the owning side to null (unless already changed)
+            if ($phase->getProjet() === $this) {
+                $phase->setProjet(null);
+            }
+        }
 
         return $this;
     }
