@@ -19,20 +19,6 @@ class Employe
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -89,6 +75,11 @@ class Employe
      */
     private $taches;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="employe", cascade={"persist", "remove"})
+     */
+    private $UserId;
+
     public function __construct()
     {
         $this->employeProjetRoles = new ArrayCollection();
@@ -102,41 +93,7 @@ class Employe
         return $this->id;
     }
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
 
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
 
 
     public function getImage()
@@ -249,35 +206,7 @@ class Employe
         return $this;
     }
 
-    /**
-     * @return Collection<int, EmployeProjetRole>
-     */
-    public function getEmployeProjetRoles(): Collection
-    {
-        return $this->employeProjetRoles;
-    }
 
-    public function addEmployeProjetRole(EmployeProjetRole $employeProjetRole): self
-    {
-        if (!$this->employeProjetRoles->contains($employeProjetRole)) {
-            $this->employeProjetRoles[] = $employeProjetRole;
-            $employeProjetRole->setEmploye($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEmployeProjetRole(EmployeProjetRole $employeProjetRole): self
-    {
-        if ($this->employeProjetRoles->removeElement($employeProjetRole)) {
-            // set the owning side to null (unless already changed)
-            if ($employeProjetRole->getEmploye() === $this) {
-                $employeProjetRole->setEmploye(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Tache>
@@ -305,6 +234,18 @@ class Employe
                 $tach->setEmploye(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->UserId;
+    }
+
+    public function setUserId(?User $UserId): self
+    {
+        $this->UserId = $UserId;
 
         return $this;
     }
