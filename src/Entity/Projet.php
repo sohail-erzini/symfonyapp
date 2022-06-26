@@ -54,10 +54,7 @@ class Projet
      */
     private $Categorie;
 
-    /**
-     * @ORM\OneToMany(targetEntity=EmployeProjetRole::class, mappedBy="projet")
-     */
-    private $projetEmployeRoles;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="projets")
@@ -71,7 +68,6 @@ class Projet
 
     public function __construct()
     {
-        $this->projetEmployeRoles = new ArrayCollection();
         $this->phases = new ArrayCollection();
     }
 
@@ -164,35 +160,6 @@ class Projet
         return $this;
     }
 
-    /**
-     * @return Collection<int, EmployeProjetRole>
-     */
-    public function getProjetEmployeRoles(): Collection
-    {
-        return $this->projetEmployeRoles;
-    }
-
-    public function addProjetEmployeRole(EmployeProjetRole $projetEmployeRole): self
-    {
-        if (!$this->projetEmployeRoles->contains($projetEmployeRole)) {
-            $this->projetEmployeRoles[] = $projetEmployeRole;
-            $projetEmployeRole->setProjet($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProjetEmployeRole(EmployeProjetRole $projetEmployeRole): self
-    {
-        if ($this->projetEmployeRoles->removeElement($projetEmployeRole)) {
-            // set the owning side to null (unless already changed)
-            if ($projetEmployeRole->getProjet() === $this) {
-                $projetEmployeRole->setProjet(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getClient(): ?Client
     {

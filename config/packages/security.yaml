@@ -1,4 +1,8 @@
 security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
@@ -6,6 +10,7 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
+        #in_database: (replaceAELH)
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -17,6 +22,13 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                login_path: security_login
+                check_path: security_login
+
+            logout:
+                path: security_logout
+                target: app_home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

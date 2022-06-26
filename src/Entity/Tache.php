@@ -55,9 +55,9 @@ class Tache
     private $dateModif;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Employe::class, inversedBy="taches")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="taches")
      */
-    private $employe;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Phase::class, inversedBy="taches")

@@ -1,0 +1,40 @@
+{%  extends 'base.html.twig' %}
+{% block body %}
+    <h1>registration</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.email, {'label': 'Email Address', 'attr':
+        {'placeholder':'Email address...'}}) }}
+    {{ form_row(form.password, {'label': 'Password', 'attr':
+        {'placeholder':'Password...'}}) }}
+    {{ form_row(form.confirm_password, {'label': 'Confirm password', 'attr':
+        {'placeholder':'confirm...'}}) }}
+    {{ form_row(form.username, {'label': 'username', 'attr':
+        {'placeholder':'Username..'}}) }}
+    {{ form_row(form.FirstName, {'label': 'FirstName', 'attr':
+        {'placeholder':'FirstName...'}}) }}
+    {{ form_row(form.LastName, {'label': 'LastName', 'attr':
+        {'placeholder':'LastName...'}}) }}
+    {{ form_row(form.DateEmbauche, {'label': 'DateEmbauche', 'attr':
+        {'placeholder':'Recrutement Date JJ/MM//AAAA'}}) }}
+    {{ form_row(form.Matricule, {'label': 'Matricule', 'attr':
+        {'placeholder':'Matricule'}}) }}
+    {{ form_row(form.Nationalite, {'label': 'Nationalite', 'attr':
+        {'placeholder':'Nationalite'}}) }}
+    {{ form_row(form.Sexe, {'label': 'Sexe', 'attr':
+        {'placeholder':'Sexe M or F'}}) }}
+    {{ form_row(form.Tel, {'label': 'Tel', 'attr':
+        {'placeholder':'Telephone '}}) }}
+
+
+
+
+
+
+
+
+
+    <button type="submit" class="btn btn-succes"></button>
+    {{ form_end(form) }}
+{% endblock %}
