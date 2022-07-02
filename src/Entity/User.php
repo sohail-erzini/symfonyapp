@@ -88,6 +88,11 @@ class User implements UserInterface
      */
     private $Tel;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $Roles = [];
+
 
     public function getId(): ?int
     {
@@ -248,6 +253,13 @@ class User implements UserInterface
     public function getRoles()
     {
         return['ROLE_ADMIN'];
+    }
+
+    public function setRoles(?array $Roles): self
+    {
+        $this->Roles = $Roles;
+
+        return $this;
     }
 
 
