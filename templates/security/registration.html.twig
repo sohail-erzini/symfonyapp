@@ -1,40 +1,105 @@
 {%  extends 'base.html.twig' %}
 {% block body %}
-    <h1>registration</h1>
 
-    {{ form_start(form) }}
-
-    {{ form_row(form.email, {'label': 'Email Address', 'attr':
-        {'placeholder':'Email address...'}}) }}
-    {{ form_row(form.password, {'label': 'Password', 'attr':
-        {'placeholder':'Password...'}}) }}
-    {{ form_row(form.confirm_password, {'label': 'Confirm password', 'attr':
-        {'placeholder':'confirm...'}}) }}
-    {{ form_row(form.username, {'label': 'username', 'attr':
-        {'placeholder':'Username..'}}) }}
-    {{ form_row(form.FirstName, {'label': 'FirstName', 'attr':
-        {'placeholder':'FirstName...'}}) }}
-    {{ form_row(form.LastName, {'label': 'LastName', 'attr':
-        {'placeholder':'LastName...'}}) }}
-    {{ form_row(form.DateEmbauche, {'label': 'DateEmbauche', 'attr':
-        {'placeholder':'Recrutement Date JJ/MM//AAAA'}}) }}
-    {{ form_row(form.Matricule, {'label': 'Matricule', 'attr':
-        {'placeholder':'Matricule'}}) }}
-    {{ form_row(form.Nationalite, {'label': 'Nationalite', 'attr':
-        {'placeholder':'Nationalite'}}) }}
-    {{ form_row(form.Sexe, {'label': 'Sexe', 'attr':
-        {'placeholder':'Sexe M or F'}}) }}
-    {{ form_row(form.Tel, {'label': 'Tel', 'attr':
-        {'placeholder':'Telephone '}}) }}
-
-
-
-
-
-
-
-
-
-    <button type="submit" class="btn btn-succes"></button>
-    {{ form_end(form) }}
+<div class="container mt-5"> 
+    <div class="row mt-5"> 
+        <div class="col-6 mt-5">
+                <h1 class="text-center">Registration</h1>
+        </div>
+    </div>
+    <div class="row text-center mt-5"> 
+            <div class="col-6 align self-center">
+                {{ form_start(form) }}
+                    <div class="row "> 
+                        <div class="col align self-center"> 
+                            <label >Email Adress</label><br>
+                            {{ form_row(form.email, {'label': ' ', 'attr':
+                            {'placeholder':'Email address...'}})  }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                            <label >Password</label><br>
+                            {{ form_row(form.password, {'label': ' ', 'attr':
+                            {'placeholder':'Password...'}}) }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                            <label >Confirm password</label><br>
+                            {{ form_row(form.confirm_password, {'label': ' ', 'attr':
+                            {'placeholder':'confirm...'}}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col align self-center">
+                            <label >username</label><br>
+                            {{ form_row(form.username, {'label': ' ', 'attr':
+                            {'placeholder':'Username..'}}) }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >FirstName</label><br>
+                        {{ form_row(form.FirstName, {'label': ' ', 'attr':
+                        {'placeholder':'FirstName...'}}) }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center mt-4">
+                            <a href="{{path('security_login')}}">Already Have an Account? Sign In</a>
+                       </div>
+                    </div>
+                    </div>
+                    <div class="col-6">
+                    <div class="row">
+                        <div class="col align self-center">
+                        <label >LastName</label><br>
+                        {{ form_row(form.LastName, {'label': ' ', 'attr':
+                        {'placeholder':'LastName...'}}) }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >DateEmbauche</label><br>
+                        {{ form_row(form.DateEmbauche, {'label': ' ', 'attr':
+                        {'placeholder':'Recrutement Date JJ/MM//AAAA'}}) }}
+                        </div>
+                    </div>
+                    
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >Matricule</label><br>
+                    {{ form_row(form.Matricule, {'label': ' ', 'attr':
+                        {'placeholder':'Matricule'}}) }}
+                    </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >Nationalite</label><br>
+                    {{ form_row(form.Nationalite, {'label': ' ', 'attr':
+                        {'placeholder':'Nationalite'}}) }}
+                    </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >Sexe</label><br>
+                    {{ form_row(form.Sexe, {'label': ' ', 'attr':
+                        {'placeholder':'Sexe M or F'}}) }}
+                    </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center mb-3">
+                        <label >Telephone</label><br>
+                        {{ form_row(form.Tel, {'label': ' ', 'attr':
+                        {'placeholder':'Telephone '}}) }}
+                        <button type="submit" class="btn btn-success btn-sm mt-3">Register</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                
+            </div>
+    </div>        
+        
+</div>
 {% endblock %}

@@ -54,10 +54,7 @@ class Tache
      */
     private $dateModif;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="taches")
-     */
-    private $user;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity=Phase::class, inversedBy="taches")
@@ -68,6 +65,11 @@ class Tache
      * @ORM\OneToMany(targetEntity=Livrable::class, mappedBy="Tache")
      */
     private $livrables;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="taches")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -163,17 +165,7 @@ class Tache
         return $this;
     }
 
-    public function getEmploye(): ?Employe
-    {
-        return $this->employe;
-    }
-
-    public function setEmploye(?Employe $employe): self
-    {
-        $this->employe = $employe;
-
-        return $this;
-    }
+   
 
     public function getPhase(): ?Phase
     {
@@ -213,6 +205,18 @@ class Tache
                 $livrable->setTache(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

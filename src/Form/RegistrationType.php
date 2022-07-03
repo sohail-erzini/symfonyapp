@@ -20,7 +20,7 @@ class RegistrationType extends AbstractType
             ->add('FirstName')
             ->add('LastName')
             ->add('DateEmbauche')
-            ->add('Image')
+            // ->add('Image')
             ->add('Matricule')
             ->add('Nationalite')
             ->add('Sexe')

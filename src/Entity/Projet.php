@@ -66,9 +66,15 @@ class Projet
      */
     private $phases;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserProjet::class, mappedBy="projet")
+     */
+    private $userProjets;
+
     public function __construct()
     {
         $this->phases = new ArrayCollection();
+        $this->userProjets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +203,36 @@ class Projet
             // set the owning side to null (unless already changed)
             if ($phase->getProjet() === $this) {
                 $phase->setProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserProjet>
+     */
+    public function getUserProjets(): Collection
+    {
+        return $this->userProjets;
+    }
+
+    public function addUserProjet(UserProjet $userProjet): self
+    {
+        if (!$this->userProjets->contains($userProjet)) {
+            $this->userProjets[] = $userProjet;
+            $userProjet->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProjet(UserProjet $userProjet): self
+    {
+        if ($this->userProjets->removeElement($userProjet)) {
+            // set the owning side to null (unless already changed)
+            if ($userProjet->getProjet() === $this) {
+                $userProjet->setProjet(null);
             }
         }
 

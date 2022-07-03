@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,6 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     fields={"email"},
  *     message= "email already exists log in instead"
  * )
+ * @method string getUserIdentifier()
  */
 class User implements UserInterface
 {
@@ -92,6 +95,22 @@ class User implements UserInterface
      * @ORM\Column(type="json", nullable=true)
      */
     private $Roles = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity=Tache::class, mappedBy="user")
+     */
+    private $taches;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserProjet::class, mappedBy="user")
+     */
+    private $userProjets;
+
+    public function __construct()
+    {
+        $this->taches = new ArrayCollection();
+        $this->userProjets = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -258,6 +277,66 @@ class User implements UserInterface
     public function setRoles(?array $Roles): self
     {
         $this->Roles = $Roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tache>
+     */
+    public function getTaches(): Collection
+    {
+        return $this->taches;
+    }
+
+    public function addTach(Tache $tach): self
+    {
+        if (!$this->taches->contains($tach)) {
+            $this->taches[] = $tach;
+            $tach->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTach(Tache $tach): self
+    {
+        if ($this->taches->removeElement($tach)) {
+            // set the owning side to null (unless already changed)
+            if ($tach->getUser() === $this) {
+                $tach->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserProjet>
+     */
+    public function getUserProjets(): Collection
+    {
+        return $this->userProjets;
+    }
+
+    public function addUserProjet(UserProjet $userProjet): self
+    {
+        if (!$this->userProjets->contains($userProjet)) {
+            $this->userProjets[] = $userProjet;
+            $userProjet->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProjet(UserProjet $userProjet): self
+    {
+        if ($this->userProjets->removeElement($userProjet)) {
+            // set the owning side to null (unless already changed)
+            if ($userProjet->getUser() === $this) {
+                $userProjet->setUser(null);
+            }
+        }
 
         return $this;
     }
