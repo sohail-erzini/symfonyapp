@@ -269,9 +269,13 @@ class User implements UserInterface
     {
         // TODO: Implement getSalt() method.
     }
-    public function getRoles()
+    public function getRoles():array
     {
-        return['ROLE_ADMIN'];
+        $roles = $this->Roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     public function setRoles(?array $Roles): self
