@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 /**
  * @Route("/client")
@@ -27,6 +29,7 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/new", name="app_client_new", methods={"GET", "POST"})
+     * @IsGranted("ROLE_OWNER")
      */
     public function new(Request $request, ClientRepository $clientRepository): Response
     {
