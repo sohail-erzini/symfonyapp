@@ -40,6 +40,8 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_client_new') }}">Create new</a>
+    {% if is_granted("ROLE_OWNER") %}
+       <a href="{{ path('app_client_new') }}">Create new</a>
+    {% endif %}
+    
 {% endblock %}
