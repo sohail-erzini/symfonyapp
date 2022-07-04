@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phase{% endblock %}
+
+{% block body %}
+    <h1>Phase</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ phase.id }}</td>
+            </tr>
+            <tr>
+                <th>Intitule</th>
+                <td>{{ phase.intitule }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ phase.status }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ phase.dateDebut }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ phase.dateFin }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_phase_index') }}">back to list</a>
+
+    <a href="{{ path('app_phase_edit', {'id': phase.id}) }}">edit</a>
+
+    {{ include('phase/_delete_form.html.twig') }}
+{% endblock %}
