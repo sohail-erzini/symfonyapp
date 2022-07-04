@@ -28,7 +28,7 @@ class SecurityController extends AbstractController
         {
             $hash =$encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
-            $user->setRoles(array('ROLE_OWNER'));
+            // $user->setRoles(array('ROLE_OWNER'));
 
             $manager->persist($user);
             $manager->flush();

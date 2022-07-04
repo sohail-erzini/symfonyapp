@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Associer Employe{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+    <div class="col mt-5">
+        {{ form_start(AssocEmployeForm)}}
+
+        {{ form_widget(AssocEmployeForm)}}
+        <button type="submit" class="btn btn-primary">
+            Associer </button>
+
+        {{ form_end(AssocEmployeForm)}}
+    </div>
+    </div>
+</div>
+
+{% endblock %}
