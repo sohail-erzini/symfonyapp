@@ -68,11 +68,11 @@
                             <td>{{employee.RoleInProjet}}</td>
                             <td> 
                                 <a class="btn btn-primary btn-sm" 
-                                href="#" role="button">
-                                chi l3ba
+                                href="" role="button">
+                                Details
                                 </a>
                                 <a class="btn btn-danger btn-sm" 
-                                href="#" role="button">
+                                href="{{ path('app_user_projet_retirer' , {"id": employee.id})  }}" role="button">
                                 Retirer</a>
                             </td>
                         </tr>

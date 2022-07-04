@@ -87,4 +87,29 @@ class UserProjetController extends AbstractController
         return $this->render('projet/associerEmployee.html.twig' , ['AssocEmployeForm' => $form->createView()
     ]);
     }
+
+
+     /**
+     * @Route("/projet/{id}/retireremploye", name="app_user_projet_retirer")
+     */
+    public function retirerEmploye($id,  EntityManagerInterface $em )
+    {
+        $repo = $em->getRepository(UserProjet::class);
+        $UserProjet = $repo->findOneById($id);
+        //  dd($UserProjet);
+        $user = $UserProjet->getUser();
+        
+        $user->setRoles(array(''));
+        // dd($user);
+        if($UserProjet !=null){
+            $em->persist($user);
+            $em->remove($UserProjet);
+            
+            $em->flush();
+
+            return $this->redirectToRoute('app_projet_index'  
+            );
+
+        }
+    }
 }
