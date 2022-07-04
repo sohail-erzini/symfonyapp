@@ -52,7 +52,7 @@ class UserProjetController extends AbstractController
             // retrieve submitted form data ( user and role)
             $data = $form->getData();
             
-            // retrieve Employe
+            // retrieve Employe / user
             $employe = $data['Employe'];
             $employe_role = $data['role'];
 
@@ -99,7 +99,7 @@ class UserProjetController extends AbstractController
         //  dd($UserProjet);
         $user = $UserProjet->getUser();
         
-        $user->setRoles(array(''));
+        $user->setRoles(array());
         // dd($user);
         if($UserProjet !=null){
             $em->persist($user);
