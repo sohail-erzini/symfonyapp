@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Projet;
 use App\Form\ProjetType;
 use App\Repository\ProjetRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,10 +51,17 @@ class ProjetController extends AbstractController
     /**
      * @Route("/{id}", name="app_projet_show", methods={"GET"})
      */
-    public function show(Projet $projet): Response
+    public function show(Projet $projet , ManagerRegistry $em , $id): Response
     {
+        $repo = $em->getRepository(Projet::class);
+        $projet = $repo->find($id);
+
+        $userProjets = $projet->getUserProjets()->getValues();
+        // dd($userProjets);
+
         return $this->render('projet/show.html.twig', [
             'projet' => $projet,
+            'employees' => $userProjets
         ]);
     }
 

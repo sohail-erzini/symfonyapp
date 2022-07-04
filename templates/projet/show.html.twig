@@ -51,20 +51,21 @@
                 <thead>
                     <tr>
                         <th scope="col"></th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Employe</th>
+                        <th scope="col">FullName</th>
                         <th scope="col">Role</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {# {% for movieCast in movieCasts %} #}
+                    {% for employee in employees %}
                         <tr class="table-primary">
                             <th scope="row"> 
                             <a href=""><img class="float-left mr-3"  src="" 
                                 alt="image" style="width:100px;height:100px;"/></a></th>
-                            <td><a href="#"></a></td>
-                            <td></td>
-                            
+                            <td><a href="#">{{employee.user.username}}</a></td>
+                            <td>{{employee.user.LastName}} {{employee.user.FirstName}}</td>
+                            <td>{{employee.RoleInProjet}}</td>
                             <td> 
                                 <a class="btn btn-primary btn-sm" 
                                 href="#" role="button">
@@ -75,7 +76,7 @@
                                 Retirer</a>
                             </td>
                         </tr>
-                    {# {% endfor %} #}
+                    {% endfor %}
                 </tbody>
             </table> 
     </div>
