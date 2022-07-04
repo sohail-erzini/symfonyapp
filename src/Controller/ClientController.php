@@ -29,7 +29,6 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/new", name="app_client_new", methods={"GET", "POST"})
-     * @IsGranted("ROLE_OWNER")
      */
     public function new(Request $request, ClientRepository $clientRepository): Response
     {
