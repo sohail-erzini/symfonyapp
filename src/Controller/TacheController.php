@@ -3,18 +3,49 @@
 namespace App\Controller;
 
 use App\Entity\Tache;
+use App\Entity\User;
 use App\Form\TacheType;
 use App\Repository\TacheRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/tache")
  */
 class TacheController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        // Avoid calling getUser() in the constructor: auth may not
+        // be complete yet. Instead, store the entire Security object.
+        $this->security = $security;
+    }
+
+
+    /**
+     * @Route("/mytasks", name="app_tache_mytasks", methods={"GET"})
+     */
+    public function myTasksIndex( EntityManagerInterface $em): Response
+    {
+
+         // returns User object or null if not authenticated
+         $user = $this->security->getUser();
+        //  dd($user);
+        //  dd($user->getUserIdentifier());
+        $taches = $user->getTaches()->getValues();
+        // dd($taches);
+
+        return $this->render('tache/mytasks.html.twig', [
+            'taches' => $taches
+        ]);
+    }
+
     /**
      * @Route("/", name="app_tache_index", methods={"GET"})
      */
@@ -87,4 +118,8 @@ class TacheController extends AbstractController
 
         return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
     }
+
+ 
+
+    
 }
