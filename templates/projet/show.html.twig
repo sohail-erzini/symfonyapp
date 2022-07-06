@@ -88,6 +88,7 @@
             <tr>
                 <th scope="col">Intitule</th>
                 <th scope="col">Statut</th>
+                <th scope="col">Actions</th>
 
             </tr>
             </thead>
@@ -99,10 +100,7 @@
                     <td>{{phase.status}}</td>
 
                     <td>
-                        <a class="btn btn-primary btn-sm"
-                           href="" role="button">
-                            Details
-                        </a>
+
                         <a class="btn btn-danger btn-sm"
                            href="{{ path('app_phase_show' , {"id": phase.id})  }}" role="button">
                             afficher</a>
