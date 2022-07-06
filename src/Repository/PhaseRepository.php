@@ -38,21 +38,20 @@ class PhaseRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return Phase[] Returns an array of Phase objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+         //AELH Add phases to project show
+    /**
+     * @return Phase[] Returns an array of Phase objects
+     */
+    public function ShowProjectPhase($value): array
+    {
+        return $this->createQueryBuilder('ph')
+            ->andWhere('ph.projet = :val')
+            ->setParameter('val', $value)
+            ->orderBy('ph.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Phase
 //    {

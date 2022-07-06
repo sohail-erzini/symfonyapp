@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Phase;
 use App\Entity\Projet;
 use App\Form\ProjetType;
+use App\Repository\PhaseRepository;
 use App\Repository\ProjetRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,7 +53,7 @@ class ProjetController extends AbstractController
     /**
      * @Route("/{id}", name="app_projet_show", methods={"GET"})
      */
-    public function show(Projet $projet , ManagerRegistry $em , $id): Response
+    public function show(Projet $projet , ManagerRegistry $em , $id, PhaseRepository $phaseRepository): Response
     {
         $repo = $em->getRepository(Projet::class);
         $projet = $repo->find($id);
@@ -59,9 +61,14 @@ class ProjetController extends AbstractController
         $userProjets = $projet->getUserProjets()->getValues();
         // dd($userProjets);
 
+        //AELH check repo
+        $phases = $phaseRepository->ShowProjectPhase($id);
+
+
         return $this->render('projet/show.html.twig', [
             'projet' => $projet,
-            'employees' => $userProjets
+            'employees' => $userProjets,
+            'phases' => $phases
         ]);
     }
 

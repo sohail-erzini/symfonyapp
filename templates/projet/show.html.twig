@@ -78,6 +78,38 @@
                         </tr>
                     {% endfor %}
                 </tbody>
-            </table> 
+            </table>
+
+
+        <h2>Phases</h2>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Intitule</th>
+                <th scope="col">Statut</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for phase in phases %}
+                <tr class="table-primary">
+
+                    <td>{{phase.intitule}}</td>
+                    <td>{{phase.status}}</td>
+
+                    <td>
+                        <a class="btn btn-primary btn-sm"
+                           href="" role="button">
+                            Details
+                        </a>
+                        <a class="btn btn-danger btn-sm"
+                           href="{{ path('app_phase_show' , {"id": phase.id})  }}" role="button">
+                            afficher</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
