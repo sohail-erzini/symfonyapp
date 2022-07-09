@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Livrable;
+use App\Entity\Phase;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -54,13 +55,17 @@ class LivrableRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Livrable
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return Livrable[] Returns an array of Phase objects
+     */
+    public function findliv($value): array
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.Tache = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+
+        ;
+    }
 }

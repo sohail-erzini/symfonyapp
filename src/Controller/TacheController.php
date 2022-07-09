@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Tache;
 use App\Entity\User;
 use App\Form\TacheType;
+use App\Repository\LivrableRepository;
 use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -80,10 +81,12 @@ class TacheController extends AbstractController
     /**
      * @Route("/{id}", name="app_tache_show", methods={"GET"})
      */
-    public function show(Tache $tache): Response
+    public function show(Tache $tache, LivrableRepository $livrableRepository): Response
     {
+        $livrable = $livrableRepository->findliv($tache);
         return $this->render('tache/show.html.twig', [
             'tache' => $tache,
+            'livrable' => $livrable,
         ]);
     }
 

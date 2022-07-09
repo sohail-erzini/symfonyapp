@@ -42,6 +42,24 @@
         </tbody>
     </table>
 
+<h2>Livrables</h2>
+<table class="table">
+    <thead>
+    <tr>
+
+        <th>Intitule</th>
+        <th>Document</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for liv in livrable %}
+    <tr>
+        <td>{{ liv.intitule }}</td>
+        <td><a download href="{{  ('uploads/fichiers/' ~ liv.DocFile) }}">Telecharger(PDF)</a></td>
+    </tr>
+
+    {% endfor %}
+    </table>
     <a href="{{ path('app_tache_index') }}">back to list</a>
 
     <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
