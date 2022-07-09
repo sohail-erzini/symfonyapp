@@ -11,9 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 
 class SecurityController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        // Avoid calling getUser() in the constructor: auth may not
+        // be complete yet. Instead, store the entire Security object.
+        $this->security = $security;
+    }
+
+
+
+
     /**
      * @Route("/registration", name="security_registration")
      */
@@ -54,6 +67,26 @@ class SecurityController extends AbstractController
 
     public function logout()
     {
+
+    }
+
+    /**
+     * @Route ("/profile", name="security_profile")
+     */
+    public function profile():Response
+    {
+         // returns User object or null if not authenticated
+        $user = $this->security->getUser();
+            if($user == null){
+
+            return $this->redirectToRoute('security_login');
+            }
+        
+        
+        return $this->render('security/profile.html.twig' , [
+            'user' => $user
+        ]);
+        
 
     }
 }

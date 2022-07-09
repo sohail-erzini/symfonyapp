@@ -7,7 +7,10 @@
 			{% endblock %}
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-		<link rel="stylesheet" href="/css/bootstrap.min.css"> {% block stylesheets %}{% endblock %}
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" 
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		 {% block stylesheets %}{% endblock %}
 		</head>
 		<body>
 		
@@ -30,6 +33,11 @@
 											<a class="nav-link active" href="{{ path('app_home')}}">Home
 											</a>
 										</li>
+										{% if app.user %}
+											<li class="nav-item">
+												<a class="nav-link" href="{{ path('security_profile') }}">Profile</a>
+											</li>
+										{% endif %}
 									{% if not app.user %}
 										<li class="nav-item">
 											<a class="nav-link" href="{{ path('security_login') }}">Sign In</a>
