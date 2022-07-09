@@ -260,6 +260,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirm_password;
+    }
+
 
     public function eraseCredentials()
     {

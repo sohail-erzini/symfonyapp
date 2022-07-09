@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -86,7 +89,68 @@ class SecurityController extends AbstractController
         return $this->render('security/profile.html.twig' , [
             'user' => $user
         ]);
-        
+    }
 
+    /**
+     * @Route ("/profile/{id}/edit", name="security_profile_edit")
+     */
+    public function editProfile(Request $request , $id , EntityManagerInterface $manager , UserPasswordEncoderInterface $encoder):Response
+    {
+        $userloggedIn = $this->security->getUser();
+        $userloggedInId = $userloggedIn->getId();
+         if($id != $userloggedInId) {
+            return $this->redirectToRoute('security_login');
+         }
+            $repo = $manager->getRepository(User::class);
+
+            $user = $repo->find($id);
+            // dd($user);
+            $form = $this->createFormBuilder($user)
+                ->add('Username', TextType::class)
+                ->add('Email' , EmailType::class )
+                ->add('Password', PasswordType::class)
+                ->add('confirm_password' , PasswordType::class )
+                ->add('LastName' , TextType::class)
+                ->add('FirstName' , TextType::class)
+                ->add('tel' , TextType::class)
+                ->add('DateEmbauche' , TextType::class)
+                ->add('Sexe' , TextType::class , [
+                    'attr' => ['placeholder' => 'M or F']
+                ])
+                ->add('Nationalite' , TextType::class)
+                ->add('Matricule' , TextType::class)
+                ->getForm()
+            ;
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                // retrive submitted user data
+                $data = $form->getData();
+                
+                // encrypt the submitted user password and set it to user object
+                $hash =$encoder->encodePassword($user, $data->getPassword());
+                $user->setPassword($hash);
+
+                // set other fields 
+                $user->setUsername($data->getUsername());
+                $user->setEmail($data->getEmail());
+                $user->setFirstName($data->getFirstName());
+                $user->setLastName($data->getLastName());
+                $user->setDateEmbauche($data->getDateEmbauche());
+                $user->setMatricule($data->getMatricule());
+                $user->setNationalite($data->getNationalite());
+                $user->setSexe($data->getSexe());
+                $user->setTel($data->getTel());
+                // dd($user);
+
+                $manager->persist($user);
+                $manager->flush();
+                
+                return $this->redirectToRoute('security_profile');
+            } 
+      
+        return $this->render('security/editProfile.html.twig' , ['editProfileForm' => $form->createView()]);
     }
 }

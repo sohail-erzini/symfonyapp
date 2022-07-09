@@ -1,0 +1,18 @@
+{%  extends 'base.html.twig' %}
+    {% block title %}edit profile{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col mt-5">
+                {{form_start(editProfileForm)}}
+
+                    {{form_widget(editProfileForm)}}
+
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                {{form_end(editProfileForm)}}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
