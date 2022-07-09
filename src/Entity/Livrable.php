@@ -32,6 +32,11 @@ class Livrable
      */
     private $Tache;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $DocFile;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Livrable
     public function setTache(?Tache $Tache): self
     {
         $this->Tache = $Tache;
+
+        return $this;
+    }
+
+    public function getDocFile(): ?string
+    {
+        return $this->DocFile;
+    }
+
+    public function setDocFile(?string $DocFile): self
+    {
+        $this->DocFile = $DocFile;
 
         return $this;
     }
