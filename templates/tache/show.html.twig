@@ -8,16 +8,20 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ tache.id }}</td>
-            </tr>
-            <tr>
                 <th>Title</th>
                 <td>{{ tache.title }}</td>
             </tr>
             <tr>
                 <th>Status</th>
                 <td>{{ tache.status }}</td>
+            </tr>
+            <tr>
+                <th>Projet</th>
+                <td>{{tache.phase.projet.intitule}}</td>
+            </tr>
+            <tr>
+                <th>Phase</th>
+                <td>{{tache.phase.intitule}}</td>
             </tr>
             <tr>
                 <th>Priorite</th>
