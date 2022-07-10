@@ -182,4 +182,30 @@ class SecurityController extends AbstractController
             );
          }
     }
+
+    /**
+     * @Route ("/users", name="security_users")
+     */
+    public function showAllUsers(EntityManagerInterface $em): Response
+    {
+        $repo = $em->getRepository(User::class);
+        $users = $repo->findAll();
+        // dd($users);
+
+        return $this->render('security/index.html.twig' , ['users'=> $users]);
+    }
+
+
+    /**
+     * @Route ("/users/{id}", name="security_users_show")
+     */
+    public function showUserDetails(EntityManagerInterface $em , $id): Response
+    {
+        $repo = $em->getRepository(User::class);
+        $user = $repo->findOneById($id);
+        
+        
+
+        return $this->render('security/userProfile.html.twig' , ['user' => $user]);
+    }
 }
