@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserProjetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=UserProjetRepository::class)
@@ -19,11 +20,13 @@ class UserProjet
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userProjets")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="userProjets")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $projet;
 

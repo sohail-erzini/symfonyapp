@@ -13,18 +13,21 @@ use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 
 class SecurityController extends AbstractController
 {
     private $security;
+    private $tokenStorage;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security , TokenStorageInterface $tokenStorage)
     {
         // Avoid calling getUser() in the constructor: auth may not
         // be complete yet. Instead, store the entire Security object.
         $this->security = $security;
+        $this->tokenStorage = $tokenStorage;
     }
 
 
@@ -153,5 +156,30 @@ class SecurityController extends AbstractController
             } 
       
         return $this->render('security/editProfile.html.twig' , ['editProfileForm' => $form->createView()]);
+    }
+
+     /**
+     * @Route ("/profile/{id}/remove", name="security_profile_remove")
+     */
+    public function removeProfile(Request $request , $id , EntityManagerInterface $manager)
+    {
+        $userloggedIn = $this->security->getUser();
+        $userloggedInId = $userloggedIn->getId();
+        if($id != $userloggedInId) {
+            return $this->redirectToRoute('security_login');
+         }
+
+         $repo = $manager->getRepository(User::class);
+         $user = $repo->findOneById($id);
+         
+         if($user != null){
+            $manager->remove($user);
+            $manager->flush();
+            $request->getSession()->invalidate();
+            $this->tokenStorage->setToken();
+
+            return $this->redirectToRoute('security_login'  
+            );
+         }
     }
 }
