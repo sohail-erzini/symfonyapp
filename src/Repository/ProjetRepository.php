@@ -39,20 +39,20 @@ class ProjetRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Projet[] Returns an array of Projet objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Projet[] Returns an array of Projet objects
+     */
+    public function SearchProj($value): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.intitule LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('p.id', 'ASC')
+            //->setMaxResults(10)     AELH : a revoir cas pagination ...
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Projet
 //    {

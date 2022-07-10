@@ -98,6 +98,7 @@ class SecurityController extends AbstractController
     {
         $userloggedIn = $this->security->getUser();
         $userloggedInId = $userloggedIn->getId();
+        // dd($userloggedInId);
          if($id != $userloggedInId) {
             return $this->redirectToRoute('security_login');
          }
@@ -109,7 +110,7 @@ class SecurityController extends AbstractController
                 ->add('Username', TextType::class)
                 ->add('Email' , EmailType::class )
                 ->add('Password', PasswordType::class)
-                ->add('confirm_password' , PasswordType::class )
+              //  ->add('confirm_password' , PasswordType::class )
                 ->add('LastName' , TextType::class)
                 ->add('FirstName' , TextType::class)
                 ->add('tel' , TextType::class)
