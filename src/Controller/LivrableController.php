@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Livrable;
+use App\Entity\Tache;
 use App\Form\LivrableType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,9 +15,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class LivrableController extends AbstractController
 {
     /**
-     * @Route("/livrable/new", name="app_livrable_new")
+     * @Route("{id}/livrable/new", name="app_livrable_new")
      */
-    public function new(Request $request, SluggerInterface $slugger, Livrable $livrable=null,ManagerRegistry $doctrine):Response
+    public function new(Request $request,$id,  SluggerInterface $slugger, Livrable $livrable=null,ManagerRegistry $doctrine):Response
     {
         $livrable = new Livrable();
         $form = $this->createForm(LivrableType::class, $livrable);
@@ -44,9 +45,13 @@ class LivrableController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
                 $livrable->setDocFile($newFilename);
+                //AELH Add id test
+                $liv = $this->getDoctrine()->getRepository(Tache::class)->find($id);
+                if(!$liv){
+                    throw $this->createNotFoundException('Ko');
+                }
+                $livrable->setTache($liv);
             }
             $doctrine->getManager()->persist($livrable);
             $doctrine->getManager()->flush();

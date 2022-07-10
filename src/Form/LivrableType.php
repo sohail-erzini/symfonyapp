@@ -29,7 +29,7 @@ class LivrableType extends AbstractType
                     ])
                 ]
             ])
-            ->add('Tache')
+            //->add('Tache')
         ;
     }
 
