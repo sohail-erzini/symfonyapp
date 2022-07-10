@@ -8,28 +8,25 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                
                 <th>Title</th>
                 <th>Status</th>
                 <th>Priorite</th>
-                <th>DateDebut</th>
-                <th>DateFin</th>
-                <th>DateAffectation</th>
-                <th>DateModif</th>
+                <th>Projet</th>
+                <th>Phase</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for tache in taches %}
             <tr>
-                <td>{{ tache.id }}</td>
+                
                 <td>{{ tache.title }}</td>
                 <td>{{ tache.status }}</td>
                 <td>{{ tache.priorite }}</td>
-                <td>{{ tache.dateDebut }}</td>
-                <td>{{ tache.dateFin }}</td>
-                <td>{{ tache.dateAffectation }}</td>
-                <td>{{ tache.dateModif }}</td>
+                <td>{{tache.phase.projet.intitule}}</td>
+                <td>{{tache.phase.intitule}}</td>
+                
                 <td>
                     <a href="{{ path('app_tache_show', {'id': tache.id}) }}">show</a>
                     <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
