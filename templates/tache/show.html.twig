@@ -63,6 +63,7 @@
     <a href="{{ path('app_tache_index') }}">back to list</a>
 
     <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
+    <a href="{{ path('app_livrable_new',{'id':tache.id }) }}">Add liv</a>
 
     {{ include('tache/_delete_form.html.twig') }}
 {% endblock %}
