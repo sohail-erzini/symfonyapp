@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Livrable;
 use App\Entity\Tache;
 use App\Form\LivrableType;
+use App\Repository\LivrableRepository;
+use App\Repository\TacheRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,4 +69,18 @@ class LivrableController extends AbstractController
             'form' => $form,
         ]);
     }
+    //
+    /**
+     * @Route("/livrable/{id}", name="app_livrable_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Livrable $livrable, LivrableRepository $livrableRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$livrable->getId(), $request->request->get('_token'))) {
+            $livrableRepository->remove($livrable, true);
+        }
+
+        return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
 }

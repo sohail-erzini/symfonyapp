@@ -53,6 +53,7 @@
 
         <th>Intitule</th>
         <th>Document</th>
+        <td>Actions</td>
     </tr>
     </thead>
     <tbody>
@@ -60,6 +61,7 @@
     <tr>
         <td>{{ liv.intitule }}</td>
         <td><a download href="{{  ('uploads/fichiers/' ~ liv.DocFile) }}">Telecharger(PDF)</a></td>
+        <td> {{ include('tache/_delete_livrable.html.twig') }} </td>
     </tr>
 
     {% endfor %}
