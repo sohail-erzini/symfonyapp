@@ -13,6 +13,7 @@
                 <th>Priorite</th>
                 <th>Projet</th>
                 <th>Phase</th>
+                <th>Employee</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +26,7 @@
                 <td>{{ tache.priorite }}</td>
                 <td>{{tache.phase.projet.intitule}}</td>
                 <td>{{tache.phase.intitule}}</td>
-                
+                <td>{{tache.user.LastName}} {{tache.user.FirstName}}</td>
                 <td>
                     <a href="{{ path('app_tache_show', {'id': tache.id}) }}">show</a>
                     <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>

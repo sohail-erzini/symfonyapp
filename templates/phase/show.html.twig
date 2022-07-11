@@ -8,12 +8,12 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ phase.id }}</td>
-            </tr>
-            <tr>
                 <th>Intitule</th>
                 <td>{{ phase.intitule }}</td>
+            </tr>
+            <tr>
+                <th>Projet</th>
+                <td>{{ phase.projet.intitule }}</td>
             </tr>
             <tr>
                 <th>Status</th>
@@ -27,6 +27,11 @@
                 <th>DateFin</th>
                 <td>{{ phase.dateFin }}</td>
             </tr>
+            <tr>
+            <th>Tasks</th>
+            {% for phaseTask in phaseTasks %}
+            <td>{{phaseTask}}</td>
+            {% endfor %}
         </tbody>
     </table>
 

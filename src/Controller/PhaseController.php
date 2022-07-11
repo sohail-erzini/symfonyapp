@@ -57,8 +57,11 @@ class PhaseController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        $phaseTasks = $phase->getTaches()->getValues();
+        
         return $this->render('phase/show.html.twig', [
             'phase' => $phase,
+            'phaseTasks' => $phaseTasks
         ]);
     }
 
