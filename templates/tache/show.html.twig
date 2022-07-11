@@ -68,8 +68,10 @@
     
     <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
     <a href="{{ path('app_livrable_new',{'id':tache.id }) }}">Add liv</a>
-
-    <a href="{{ path('app_tache_start', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">Start Tache</button></a>
+    {% if is_granted("ROLE_DEV") and tache.status == "Open" %} 
+       <a href="{{ path('app_tache_start', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">Start Tache</button></a>
+     {% endif %}
+    
 
     {{ include('tache/_delete_form.html.twig') }}
 {% endblock %}

@@ -131,18 +131,31 @@ class TacheController extends AbstractController
         $repo = $em->getRepository(Tache::class);
         // retrive the task
         $tache = $repo->findOneById($id);
-
+        
         // retrive the user of the task
-        $user = $tache->getUser();
+        $userID = $tache->getUser()->getId();
+        
+        // dd($userID);
 
         // Retrieve the authenticated user
-        $loggedInUser = $this->security->getUser();
-        if($user->getId() == $loggedInUser){
-            echo 'sohail erzini';
-            die();
+        $loggedInUserID = $this->security->getUser()->getId();
+        // dd($loggedInUserID);
+        if($userID != $loggedInUserID){
+            return $this->redirectToRoute('security_login');
         }
 
-        
+        if($tache->getStatus() == 'Open'){
+            $tache->setStatus('In Progress');
+            // dd($tache);
+            $em->persist($tache);
+            $em->flush();
+        }
+        else {
+            return $this->redirectToRoute('app_tache_mytasks');
+        }
+       
+
+        return $this->redirectToRoute('app_tache_mytasks');
 
     }
 
