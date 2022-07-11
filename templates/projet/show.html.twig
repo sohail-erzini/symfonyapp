@@ -28,6 +28,21 @@
             <div class="col-10 mt-3">
                 <a href="{{ path('app_projet_index') }}">
                 <button type="button" class="btn btn-primary btn-sm">Return</button></a>
+    
+                {% if is_granted("ROLE_OWNER") and projet.etat == "Open" %}
+                    <a href="{{ path('app_projet_launch' , {'id': projet.id}) }}">
+                    <button type="button" class="btn btn-success btn-sm">Launch</button></a>
+                {% endif %}
+
+                {% if is_granted("ROLE_OWNER") and projet.etat == "In Progress" %}
+                    <a href="{{ path('app_projet_finish' , {'id': projet.id}) }}">
+                    <button type="button" class="btn btn-success btn-sm">Cloturer</button></a>
+                {% endif %}
+                {% if is_granted("ROLE_OWNER") and projet.etat != "Finished" and projet.etat != "Cancelled" %}
+                    <a href="{{ path('app_projet_cancel' , {'id': projet.id}) }}">
+                    <button type="button" class="btn btn-danger btn-sm">Cancel</button></a>
+                {% endif %}
+
             </div>
             <div class="col-2 mt-3">
                 <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">
@@ -100,7 +115,6 @@
                     <td>{{phase.status}}</td>
 
                     <td>
-
                         <a class="btn btn-danger btn-sm"
                            href="{{ path('app_phase_show' , {"id": phase.id})  }}" role="button">
                             afficher</a>

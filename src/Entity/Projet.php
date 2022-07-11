@@ -23,11 +23,7 @@ class Projet
      * @ORM\Column(type="string", length=100)
      */
     private $intitule;
-
- 
-
-   
-
+    
     /**
      * @ORM\Column(type="float", nullable=true)
      */

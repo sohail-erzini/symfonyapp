@@ -13,10 +13,10 @@ class ProjetType extends AbstractType
     {
         $builder
             ->add('intitule')
-            ->add('dateDebut')
-            ->add('dateFin')
+            // ->add('dateDebut')
+            // ->add('dateFin')
             ->add('budget')
-            ->add('etat')
+            // ->add('etat')
             ->add('description')
             ->add('Categorie')
             ->add('client')

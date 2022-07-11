@@ -7,6 +7,7 @@ use App\Entity\Projet;
 use App\Form\ProjetType;
 use App\Repository\PhaseRepository;
 use App\Repository\ProjetRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,6 +44,8 @@ class ProjetController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $projet->setEtat('Open');
+            
             $projetRepository->add($projet, true);
 
             return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
@@ -110,4 +113,88 @@ class ProjetController extends AbstractController
 
         return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    
+    /**
+     * @Route("/{id}/launch", name="app_projet_launch")
+     */
+    public function launchProjet($id , EntityManagerInterface $em)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $repo = $em->getRepository(Projet::class);
+        // retrive the task
+        $projet = $repo->findOneById($id);
+      
+        
+
+        if($projet->getEtat() == 'Open'){
+            $projet->setEtat('In Progress');
+            // dd($tache);
+            $em->persist($projet);
+            $em->flush();
+        }
+        else {
+            return $this->redirectToRoute('app_projet_index');
+        }
+       
+
+        return $this->redirectToRoute('app_projet_show' , ['id' => $id]);
+    }
+
+    /**
+     * @Route("/{id}/finish", name="app_projet_finish")
+     */
+    public function finishProjet($id , EntityManagerInterface $em)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $repo = $em->getRepository(Projet::class);
+        // retrive the task
+        $projet = $repo->findOneById($id);
+      
+        
+
+        if($projet->getEtat() == 'In Progress'){
+            $projet->setEtat('Finished');
+            // dd($tache);
+            $em->persist($projet);
+            $em->flush();
+        }
+        else {
+            return $this->redirectToRoute('app_projet_index');
+        }
+       
+
+        return $this->redirectToRoute('app_projet_show' , ['id' => $id]);
+    }
+
+
+    /**
+     * @Route("/{id}/cancel", name="app_projet_cancel")
+     */
+    public function cancelProjet($id , EntityManagerInterface $em)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $repo = $em->getRepository(Projet::class);
+        // retrive the task
+        $projet = $repo->findOneById($id);
+      
+        
+
+        if($projet->getEtat() != 'Finished'){
+            $projet->setEtat('Cancelled');
+            // dd($tache);
+            $em->persist($projet);
+            $em->flush();
+        }
+        else {
+            return $this->redirectToRoute('app_projet_index');
+        }
+       
+
+        return $this->redirectToRoute('app_projet_show' , ['id' => $id]);
+    }
 }
+
