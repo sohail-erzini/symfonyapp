@@ -22,6 +22,7 @@ class HomeController extends AbstractController
      */
     public function search(ProjetRepository $projetRepository,Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $proj = $request->query->get('proj');
         return $this->render('projet/index.html.twig', [
             'projets' => $projetRepository->SearchProj($proj),

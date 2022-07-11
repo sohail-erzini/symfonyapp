@@ -20,6 +20,8 @@ class PhaseController extends AbstractController
      */
     public function index(PhaseRepository $phaseRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('phase/index.html.twig', [
             'phases' => $phaseRepository->findAll(),
         ]);
@@ -30,6 +32,8 @@ class PhaseController extends AbstractController
      */
     public function new(Request $request, PhaseRepository $phaseRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $phase = new Phase();
         $form = $this->createForm(PhaseType::class, $phase);
         $form->handleRequest($request);
@@ -51,6 +55,8 @@ class PhaseController extends AbstractController
      */
     public function show(Phase $phase): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('phase/show.html.twig', [
             'phase' => $phase,
         ]);
@@ -61,6 +67,7 @@ class PhaseController extends AbstractController
      */
     public function edit(Request $request, Phase $phase, PhaseRepository $phaseRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(PhaseType::class, $phase);
         $form->handleRequest($request);
 
@@ -81,6 +88,8 @@ class PhaseController extends AbstractController
      */
     public function delete(Request $request, Phase $phase, PhaseRepository $phaseRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         if ($this->isCsrfTokenValid('delete'.$phase->getId(), $request->request->get('_token'))) {
             $phaseRepository->remove($phase, true);
         }

@@ -22,6 +22,8 @@ class ClientController extends AbstractController
      */
     public function index(ClientRepository $clientRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('client/index.html.twig', [
             'clients' => $clientRepository->findAll(),
         ]);
@@ -32,6 +34,7 @@ class ClientController extends AbstractController
      */
     public function new(Request $request, ClientRepository $clientRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
@@ -53,6 +56,8 @@ class ClientController extends AbstractController
      */
     public function show(Client $client): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('client/show.html.twig', [
             'client' => $client,
         ]);
@@ -63,6 +68,8 @@ class ClientController extends AbstractController
      */
     public function edit(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
@@ -83,6 +90,8 @@ class ClientController extends AbstractController
      */
     public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
             $clientRepository->remove($client, true);
         }

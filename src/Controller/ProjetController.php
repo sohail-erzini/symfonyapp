@@ -24,6 +24,9 @@ class ProjetController extends AbstractController
      */
     public function index(ProjetRepository $projetRepository): Response
     {
+        // AELH : redirect to login if tried to access via route
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('projet/index.html.twig', [
             'projets' => $projetRepository->findAll(),
         ]);
@@ -34,6 +37,7 @@ class ProjetController extends AbstractController
      */
     public function new(Request $request, ProjetRepository $projetRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $projet = new Projet();
         $form = $this->createForm(ProjetType::class, $projet);
         $form->handleRequest($request);
@@ -55,6 +59,7 @@ class ProjetController extends AbstractController
      */
     public function show(Projet $projet , ManagerRegistry $em , $id, PhaseRepository $phaseRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $repo = $em->getRepository(Projet::class);
         $projet = $repo->find($id);
 
@@ -77,6 +82,7 @@ class ProjetController extends AbstractController
      */
     public function edit(Request $request, Projet $projet, ProjetRepository $projetRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(ProjetType::class, $projet);
         $form->handleRequest($request);
 
@@ -97,6 +103,7 @@ class ProjetController extends AbstractController
      */
     public function delete(Request $request, Projet $projet, ProjetRepository $projetRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if ($this->isCsrfTokenValid('delete'.$projet->getId(), $request->request->get('_token'))) {
             $projetRepository->remove($projet, true);
         }

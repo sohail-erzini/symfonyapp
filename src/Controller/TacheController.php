@@ -34,8 +34,10 @@ class TacheController extends AbstractController
      */
     public function myTasksIndex( EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-         // returns User object or null if not authenticated
+
+        // returns User object or null if not authenticated
          $user = $this->security->getUser();
         //  dd($user);
         //  dd($user->getUserIdentifier());
@@ -52,6 +54,8 @@ class TacheController extends AbstractController
      */
     public function index(TacheRepository $tacheRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('tache/index.html.twig', [
             'taches' => $tacheRepository->findAll(),
         ]);
@@ -62,6 +66,8 @@ class TacheController extends AbstractController
      */
     public function new(Request $request, TacheRepository $tacheRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $tache = new Tache();
         $form = $this->createForm(TacheType::class, $tache);
         $form->handleRequest($request);
@@ -83,6 +89,8 @@ class TacheController extends AbstractController
      */
     public function show(Tache $tache, LivrableRepository $livrableRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $livrable = $livrableRepository->findliv($tache);
         return $this->render('tache/show.html.twig', [
             'tache' => $tache,
@@ -95,6 +103,8 @@ class TacheController extends AbstractController
      */
     public function edit(Request $request, Tache $tache, TacheRepository $tacheRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $form = $this->createForm(TacheType::class, $tache);
         $form->handleRequest($request);
 
@@ -115,6 +125,8 @@ class TacheController extends AbstractController
      */
     public function delete(Request $request, Tache $tache, TacheRepository $tacheRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         if ($this->isCsrfTokenValid('delete'.$tache->getId(), $request->request->get('_token'))) {
             $tacheRepository->remove($tache, true);
         }
@@ -128,6 +140,8 @@ class TacheController extends AbstractController
      */
     public function startTask(Request $request , $id , EntityManagerInterface $em)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $repo = $em->getRepository(Tache::class);
         // retrive the task
         $tache = $repo->findOneById($id);
@@ -164,6 +178,8 @@ class TacheController extends AbstractController
      */
     public function endTask(Request $request , $id , EntityManagerInterface $em)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $repo = $em->getRepository(Tache::class);
         // retrive the task
         $tache = $repo->findOneById($id);
@@ -204,6 +220,8 @@ class TacheController extends AbstractController
      */
     public function validateTask(Request $request , $id , EntityManagerInterface $em)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $repo = $em->getRepository(Tache::class);
         // retrive the task
         $tache = $repo->findOneById($id);

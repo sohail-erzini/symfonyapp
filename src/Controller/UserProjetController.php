@@ -20,6 +20,8 @@ class UserProjetController extends AbstractController
      */
     public function associateEmploye(Request $request , EntityManagerInterface $em , $id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         // retrieve the project
         $repo = $em->getRepository(Projet::class);
         $projet = $repo->findOneById($id);
@@ -94,6 +96,8 @@ class UserProjetController extends AbstractController
      */
     public function retirerEmploye($id,  EntityManagerInterface $em )
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $repo = $em->getRepository(UserProjet::class);
         $UserProjet = $repo->findOneById($id);
         //  dd($UserProjet);

@@ -21,6 +21,7 @@ class LivrableController extends AbstractController
      */
     public function new(Request $request,$id,  SluggerInterface $slugger, Livrable $livrable=null,ManagerRegistry $doctrine):Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $livrable = new Livrable();
         $form = $this->createForm(LivrableType::class, $livrable);
         $form->handleRequest($request);
@@ -75,6 +76,8 @@ class LivrableController extends AbstractController
      */
     public function delete(Request $request, Livrable $livrable, LivrableRepository $livrableRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         if ($this->isCsrfTokenValid('delete'.$livrable->getId(), $request->request->get('_token'))) {
             $livrableRepository->remove($livrable, true);
         }
