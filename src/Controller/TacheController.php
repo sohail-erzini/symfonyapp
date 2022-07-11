@@ -122,7 +122,29 @@ class TacheController extends AbstractController
         return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
     }
 
- 
+
+    /**
+     * @Route("/{id}/start", name="app_tache_start")
+     */
+    public function startTask(Request $request , $id , EntityManagerInterface $em)
+    {
+        $repo = $em->getRepository(Tache::class);
+        // retrive the task
+        $tache = $repo->findOneById($id);
+
+        // retrive the user of the task
+        $user = $tache->getUser();
+
+        // Retrieve the authenticated user
+        $loggedInUser = $this->security->getUser();
+        if($user->getId() == $loggedInUser){
+            echo 'sohail erzini';
+            die();
+        }
+
+        
+
+    }
 
     
 }
