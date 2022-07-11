@@ -30,16 +30,6 @@ class Phase
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $dateDebut;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $dateFin;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="phases")
      */
     private $projet;
@@ -48,6 +38,16 @@ class Phase
      * @ORM\OneToMany(targetEntity=Tache::class, mappedBy="phase")
      */
     private $taches;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateFin;
 
     public function __construct()
     {
@@ -83,29 +83,6 @@ class Phase
         return $this;
     }
 
-    public function getDateDebut(): ?string
-    {
-        return $this->dateDebut;
-    }
-
-    public function setDateDebut(string $dateDebut): self
-    {
-        $this->dateDebut = $dateDebut;
-
-        return $this;
-    }
-
-    public function getDateFin(): ?string
-    {
-        return $this->dateFin;
-    }
-
-    public function setDateFin(?string $dateFin): self
-    {
-        $this->dateFin = $dateFin;
-
-        return $this;
-    }
 
     public function getProjet(): ?Projet
     {
@@ -151,6 +128,30 @@ class Phase
 
     public function __toString() {
         return $this->intitule;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(?\DateTimeInterface $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(?\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
     }
 
 }

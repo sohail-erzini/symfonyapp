@@ -34,26 +34,6 @@ class Tache
      */
     private $priorite;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $dateDebut;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $dateFin;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $dateAffectation;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $dateModif;
-
     
 
     /**
@@ -70,6 +50,21 @@ class Tache
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="taches")
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateFin;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateAffectation;
 
     public function __construct()
     {
@@ -117,55 +112,6 @@ class Tache
         return $this;
     }
 
-    public function getDateDebut(): ?string
-    {
-        return $this->dateDebut;
-    }
-
-    public function setDateDebut(string $dateDebut): self
-    {
-        $this->dateDebut = $dateDebut;
-
-        return $this;
-    }
-
-    public function getDateFin(): ?string
-    {
-        return $this->dateFin;
-    }
-
-    public function setDateFin(?string $dateFin): self
-    {
-        $this->dateFin = $dateFin;
-
-        return $this;
-    }
-
-    public function getDateAffectation(): ?string
-    {
-        return $this->dateAffectation;
-    }
-
-    public function setDateAffectation(?string $dateAffectation): self
-    {
-        $this->dateAffectation = $dateAffectation;
-
-        return $this;
-    }
-
-    public function getDateModif(): ?string
-    {
-        return $this->dateModif;
-    }
-
-    public function setDateModif(?string $dateModif): self
-    {
-        $this->dateModif = $dateModif;
-
-        return $this;
-    }
-
-   
 
     public function getPhase(): ?Phase
     {
@@ -223,5 +169,41 @@ class Tache
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(?\DateTimeInterface $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(?\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    public function getDateAffectation(): ?\DateTimeInterface
+    {
+        return $this->dateAffectation;
+    }
+
+    public function setDateAffectation(?\DateTimeInterface $dateAffectation): self
+    {
+        $this->dateAffectation = $dateAffectation;
+
+        return $this;
     }
 }

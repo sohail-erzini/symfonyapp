@@ -24,15 +24,9 @@ class Projet
      */
     private $intitule;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $dateDebut;
+ 
 
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $dateFin;
+   
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -71,6 +65,16 @@ class Projet
      */
     private $userProjets;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateFin;
+
     public function __construct()
     {
         $this->phases = new ArrayCollection();
@@ -94,29 +98,6 @@ class Projet
         return $this;
     }
 
-    public function getDateDebut(): ?string
-    {
-        return $this->dateDebut;
-    }
-
-    public function setDateDebut(string $dateDebut): self
-    {
-        $this->dateDebut = $dateDebut;
-
-        return $this;
-    }
-
-    public function getDateFin(): ?string
-    {
-        return $this->dateFin;
-    }
-
-    public function setDateFin(?string $dateFin): self
-    {
-        $this->dateFin = $dateFin;
-
-        return $this;
-    }
 
     public function getBudget(): ?float
     {
@@ -240,5 +221,29 @@ class Projet
     }
     public function __toString() {
         return $this->intitule;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(?\DateTimeInterface $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(?\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
     }
 }

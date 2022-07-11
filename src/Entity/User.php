@@ -54,17 +54,10 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100)
      */
     private $username;
-
-
     /**
      * @ORM\Column(type="string", length=100)
      */
     private $LastName;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $DateEmbauche;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
@@ -105,6 +98,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=UserProjet::class, mappedBy="user")
      */
     private $userProjets;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateEmbauche;
 
     public function __construct()
     {
@@ -158,19 +156,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDateEmbauche(): ?string
-    {
-        return $this->DateEmbauche;
-    }
-
-
-
-    public function setDateEmbauche(?string $DateEmbauche): self
-    {
-        $this->DateEmbauche = $DateEmbauche;
-
-        return $this;
-    }
+   
 
     public function getImage()
     {
@@ -352,6 +338,18 @@ class User implements UserInterface
 
     public function __toString() {
         return $this->username;
+    }
+
+    public function getDateEmbauche(): ?\DateTimeInterface
+    {
+        return $this->dateEmbauche;
+    }
+
+    public function setDateEmbauche(?\DateTimeInterface $dateEmbauche): self
+    {
+        $this->dateEmbauche = $dateEmbauche;
+
+        return $this;
     }
 
 
