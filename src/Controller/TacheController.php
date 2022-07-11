@@ -159,5 +159,44 @@ class TacheController extends AbstractController
 
     }
 
+    /**
+     * @Route("/{id}/end", name="app_tache_end")
+     */
+    public function endTask(Request $request , $id , EntityManagerInterface $em)
+    {
+        $repo = $em->getRepository(Tache::class);
+        // retrive the task
+        $tache = $repo->findOneById($id);
+        
+        // retrive the user of the task
+        $userID = $tache->getUser()->getId();
+        
+        // dd($userID);
+
+        // Retrieve the authenticated user
+        $loggedInUserID = $this->security->getUser()->getId();
+        // dd($loggedInUserID);
+        if($userID != $loggedInUserID){
+            return $this->redirectToRoute('security_login');
+        }
+
+        $tache_livrables = $tache->getLivrables()->getValues();
+       
+        
+        if($tache->getStatus() == 'In Progress' && $tache_livrables != null){
+            $tache->setStatus('Waiting For Validation');
+            // dd($tache);
+            $em->persist($tache);
+            $em->flush();
+        }
+        else {
+            return $this->redirectToRoute('app_tache_mytasks');
+        }
+       
+
+        return $this->redirectToRoute('app_tache_mytasks');
+
+    }
+
     
 }

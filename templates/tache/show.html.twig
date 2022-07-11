@@ -53,7 +53,9 @@
 
         <th>Intitule</th>
         <th>Document</th>
-        <td>Actions</td>
+        {% if is_granted("ROLE_DEV") and tache.status == "In Progress" %}
+            <td>Actions</td>
+        {% endif %}
     </tr>
     </thead>
     <tbody>
@@ -61,7 +63,9 @@
     <tr>
         <td>{{ liv.intitule }}</td>
         <td><a download href="{{  ('uploads/fichiers/' ~ liv.DocFile) }}">Telecharger(PDF)</a></td>
-        <td> {{ include('tache/_delete_livrable.html.twig') }} </td>
+        {% if is_granted("ROLE_DEV") and tache.status == "In Progress" %}
+            <td> {{ include('tache/_delete_livrable.html.twig') }} </td>
+        {% endif %}
     </tr>
 
     {% endfor %}
@@ -69,9 +73,14 @@
     <a href="{{ path('app_tache_index') }}">back to list</a>
     
     <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
-    <a href="{{ path('app_livrable_new',{'id':tache.id }) }}">Add liv</a>
+    {% if is_granted("ROLE_DEV") and tache.status == "In Progress" %}
+        <a href="{{ path('app_livrable_new',{'id':tache.id }) }}">Add liv</a>
+    {% endif %}
     {% if is_granted("ROLE_DEV") and tache.status == "Open" %} 
        <a href="{{ path('app_tache_start', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">Start Tache</button></a>
+     {% endif %}
+     {% if is_granted("ROLE_DEV") and tache.status == "In Progress" and livrable != null %} 
+       <a href="{{ path('app_tache_end', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">End Tache</button></a>
      {% endif %}
     
 
