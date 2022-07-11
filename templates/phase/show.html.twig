@@ -36,6 +36,15 @@
     </table>
 
     <a href="{{ path('app_phase_index') }}">back to list</a>
+    {% if is_granted("ROLE_MANAGER") or is_granted("ROLE_OWNER") and phase.status == "Open" %}
+        <a href="{{ path('app_phase_launch' , {'id': phase.id}) }}">
+        <button type="button" class="btn btn-success btn-sm">Launch</button></a>
+    {% endif %}
+
+    {% if is_granted("ROLE_MANAGER") or is_granted("ROLE_OWNER") and phase.status == "In Progress" %}
+        <a href="{{ path('app_phase_finish' , {'id': phase.id}) }}">
+        <button type="button" class="btn btn-danger btn-sm">Cloturer</button></a>
+    {% endif %}
 
     <a href="{{ path('app_phase_edit', {'id': phase.id}) }}">edit</a>
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Phase;
 use App\Form\PhaseType;
 use App\Repository\PhaseRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,7 @@ class PhaseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $phase->setStatus('Open');
             $phaseRepository->add($phase, true);
 
             return $this->redirectToRoute('app_phase_index', [], Response::HTTP_SEE_OTHER);
@@ -98,5 +100,56 @@ class PhaseController extends AbstractController
         }
 
         return $this->redirectToRoute('app_phase_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    /**
+     * @Route("/{id}/launch", name="app_phase_launch")
+     */
+    public function launchPhase($id , EntityManagerInterface $em)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $repo = $em->getRepository(Phase::class);
+        // retrive the task
+        $phase = $repo->findOneById($id);
+      
+        if($phase->getStatus() == 'Open'){
+            $phase->setStatus('In Progress');
+            // dd($tache);
+            $em->persist($phase);
+            $em->flush();
+        }
+        else {
+            return $this->redirectToRoute('app_phase_show' , ['id' => $id]);
+        }
+       
+
+        return $this->redirectToRoute('app_phase_show' , ['id' => $id]);
+    }
+
+    /**
+     * @Route("/{id}/finish", name="app_phase_finish")
+     */
+    public function finishPhase($id , EntityManagerInterface $em)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $repo = $em->getRepository(Phase::class);
+        // retrive the task
+        $phase = $repo->findOneById($id);
+      
+        if($phase->getStatus() == 'In Progress'){
+            $phase->setStatus('Finished');
+            // dd($tache);
+            $em->persist($phase);
+            $em->flush();
+        }
+        else {
+            return $this->redirectToRoute('app_phase_show' , ['id' => $id]);
+        }
+       
+        return $this->redirectToRoute('app_phase_show' , ['id' => $id]);
+       
     }
 }
