@@ -199,4 +199,31 @@ class TacheController extends AbstractController
     }
 
     
+    /**
+     * @Route("/{id}/validate", name="app_tache_validate")
+     */
+    public function validateTask(Request $request , $id , EntityManagerInterface $em)
+    {
+        $repo = $em->getRepository(Tache::class);
+        // retrive the task
+        $tache = $repo->findOneById($id);
+        
+        $tache_livrables = $tache->getLivrables()->getValues();
+       
+      
+        if($tache->getStatus() == 'Waiting For Validation' && $tache_livrables != null){
+            $tache->setStatus('Finished');
+            
+            $em->persist($tache);
+            $em->flush();
+        }
+        else {
+            return $this->redirectToRoute('app_tache_mytasks');
+        }
+       
+
+        return $this->redirectToRoute('app_tache_index');
+
+    }
+    
 }

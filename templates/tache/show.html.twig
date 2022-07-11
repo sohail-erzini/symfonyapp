@@ -70,6 +70,7 @@
 
     {% endfor %}
     </table>
+
     <a href="{{ path('app_tache_index') }}">back to list</a>
     
     <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
@@ -81,6 +82,9 @@
      {% endif %}
      {% if is_granted("ROLE_DEV") and tache.status == "In Progress" and livrable != null %} 
        <a href="{{ path('app_tache_end', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">End Tache</button></a>
+     {% endif %}
+      {% if is_granted("ROLE_MANAGER") and tache.status == "Waiting For Validation" %} 
+       <a href="{{ path('app_tache_validate', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">Valider Tache</button></a>
      {% endif %}
     
 
