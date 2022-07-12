@@ -33,7 +33,7 @@
                         {% endif %}
                         <h6>Nationalité: {{ user.Nationalite }}<h6><br>
                         <h6>Matricule: {{ user.Matricule }}<h6><br>
-                        <h6>DateEmbauche: {{ user.DateEmbauche }}<h6><br>
+                        <h6>DateEmbauche: {{ user.DateEmbauche is empty ? "" : user.DateEmbauche|date("d/m/Y")}}<h6><br>
                     </div>
                 </div>
             </div>

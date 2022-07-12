@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -117,7 +118,7 @@ class SecurityController extends AbstractController
                 ->add('LastName' , TextType::class)
                 ->add('FirstName' , TextType::class)
                 ->add('tel' , TextType::class)
-                ->add('DateEmbauche' , TextType::class)
+                ->add('DateEmbauche' , DateType::class)
                 ->add('Sexe' , TextType::class , [
                     'attr' => ['placeholder' => 'M or F']
                 ])
