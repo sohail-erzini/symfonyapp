@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                
                 <th>Intitule</th>
                 <th>DateDebut</th>
                 <th>DateFin</th>
@@ -22,10 +22,10 @@
         <tbody>
         {% for projet in projets %}
             <tr>
-                <td>{{ projet.id }}</td>
+               
                 <td>{{ projet.intitule }}</td>
-                <td>{{ projet.dateDebut }}</td>
-                <td>{{ projet.dateFin }}</td>
+                <td>{{ projet.dateDebut is empty ? "" : projet.dateDebut|date("d/m/Y") }}</td>
+                <td>{{ projet.dateFin is empty ? "" : projet.dateFin|date("d/m/Y") }}</td>
                 <td>{{ projet.budget }}</td>
                 <td>{{ projet.etat }}</td>
                 <td>{{ projet.description }}</td>

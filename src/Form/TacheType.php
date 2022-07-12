@@ -13,12 +13,7 @@ class TacheType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('status')
             ->add('priorite')
-            ->add('dateDebut')
-            ->add('dateFin')
-            ->add('dateAffectation')
-            ->add('dateModif')
             ->add('phase')
             ->add('user')
         ;

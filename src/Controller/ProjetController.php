@@ -130,7 +130,7 @@ class ProjetController extends AbstractController
 
         if($projet->getEtat() == 'Open'){
             $projet->setEtat('In Progress');
-            // dd($tache);
+            $projet->setDateDebut(new \DateTime());
             $em->persist($projet);
             $em->flush();
         }
@@ -157,7 +157,7 @@ class ProjetController extends AbstractController
 
         if($projet->getEtat() == 'In Progress'){
             $projet->setEtat('Finished');
-            // dd($tache);
+            $projet->setDateFin(new \DateTime());
             $em->persist($projet);
             $em->flush();
         }
@@ -181,11 +181,9 @@ class ProjetController extends AbstractController
         // retrive the task
         $projet = $repo->findOneById($id);
       
-        
-
         if($projet->getEtat() != 'Finished'){
             $projet->setEtat('Cancelled');
-            // dd($tache);
+            $projet->setDateFin(new \DateTime());
             $em->persist($projet);
             $em->flush();
         }

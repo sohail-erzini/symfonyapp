@@ -22,8 +22,9 @@
                 <td>{{ phase.id }}</td>
                 <td>{{ phase.intitule }}</td>
                 <td>{{ phase.status }}</td>
-                <td>{{ phase.dateDebut }}</td>
-                <td>{{ phase.dateFin }}</td>
+               
+                <td> {{ phase.dateDebut is empty ? "" : phase.dateDebut|date("d/m/Y") }}</td>
+                <td> {{ phase.dateFin is empty ? "" : phase.dateFin|date("d/m/Y") }}</td>
                 <td>
                     <a href="{{ path('app_phase_show', {'id': phase.id}) }}">show</a>
                     <a href="{{ path('app_phase_edit', {'id': phase.id}) }}">edit</a>

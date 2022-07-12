@@ -23,7 +23,7 @@ class Projet
      * @ORM\Column(type="string", length=100)
      */
     private $intitule;
-    
+
     /**
      * @ORM\Column(type="float", nullable=true)
      */
@@ -217,6 +217,7 @@ class Projet
     }
     public function __toString() {
         return $this->intitule;
+        return $this->dateDebut;
     }
 
     public function getDateDebut(): ?\DateTimeInterface
@@ -242,4 +243,6 @@ class Projet
 
         return $this;
     }
+
+    
 }

@@ -13,9 +13,6 @@ class PhaseType extends AbstractType
     {
         $builder
             ->add('intitule')
-            // ->add('status')
-            // ->add('dateDebut')
-            // ->add('dateFin')
             ->add('projet')
         ;
     }

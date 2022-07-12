@@ -116,7 +116,7 @@ class PhaseController extends AbstractController
       
         if($phase->getStatus() == 'Open'){
             $phase->setStatus('In Progress');
-            // dd($tache);
+            $phase->setDateDebut(new \DateTime());
             $em->persist($phase);
             $em->flush();
         }
@@ -141,7 +141,7 @@ class PhaseController extends AbstractController
       
         if($phase->getStatus() == 'In Progress'){
             $phase->setStatus('Finished');
-            // dd($tache);
+            $phase->setDateFin(new \DateTime());
             $em->persist($phase);
             $em->flush();
         }

@@ -19,8 +19,8 @@
                 <h6>Etat: {{ projet.etat }}<h6>
             </div>
             <div class="col-6  text-center">
-                <h6>Date Debut: {{ projet.dateDebut }}<h6>
-                <h6>Date Fin: {{ projet.dateFin }}<h6> 
+                <h6>Date Debut: {{ projet.dateDebut is empty ? "" : projet.dateDebut|date("d/m/Y") }}<h6>
+                <h6>Date Fin: {{ projet.dateFin is empty ? "" : projet.dateFin|date("d/m/Y") }}<h6> 
                 <h6>Description: {{ projet.description }}<h6> 
             </div>
         </div>
