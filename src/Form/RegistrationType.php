@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RegistrationType extends AbstractType
 {
@@ -19,11 +21,19 @@ class RegistrationType extends AbstractType
             ->add('username')
             ->add('FirstName')
             ->add('LastName')
-            ->add('DateEmbauche')
+            ->add('DateEmbauche', DateType::class, [
+                'widget' => 'choice',
+                'format' => 'yyyy-MM-dd',
+            ])
             // ->add('Image')
             ->add('Matricule')
             ->add('Nationalite')
-            ->add('Sexe')
+            ->add('Sexe', ChoiceType::class, [
+                'choices' => [
+                    'Homme' => 'M',
+                    'Femme' => 'F',
+                ],
+            ])
             ->add('Tel')
         ;
     }
