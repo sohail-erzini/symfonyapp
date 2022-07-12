@@ -73,6 +73,8 @@ class TacheController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $tache->setStatus('Open');
+            $tache->setDateAffectation(new \DateTime());
             $tacheRepository->add($tache, true);
 
             return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
@@ -160,7 +162,7 @@ class TacheController extends AbstractController
 
         if($tache->getStatus() == 'Open'){
             $tache->setStatus('In Progress');
-            // dd($tache);
+            $tache->setDateDebut(new \DateTime());
             $em->persist($tache);
             $em->flush();
         }
@@ -201,7 +203,7 @@ class TacheController extends AbstractController
         
         if($tache->getStatus() == 'In Progress' && $tache_livrables != null){
             $tache->setStatus('Waiting For Validation');
-            // dd($tache);
+            
             $em->persist($tache);
             $em->flush();
         }
@@ -231,7 +233,7 @@ class TacheController extends AbstractController
       
         if($tache->getStatus() == 'Waiting For Validation' && $tache_livrables != null){
             $tache->setStatus('Finished');
-            
+            $tache->setDateFin(new \DateTime());
             $em->persist($tache);
             $em->flush();
         }

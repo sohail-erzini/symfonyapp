@@ -20,12 +20,14 @@
                 <td>{{ phase.status }}</td>
             </tr>
             <tr>
+            
+                
                 <th>DateDebut</th>
-                <td>{{ phase.dateDebut }}</td>
+                <td>{{ phase.dateDebut is empty ? "" : phase.dateDebut|date("d/m/Y") }}</td>
             </tr>
             <tr>
                 <th>DateFin</th>
-                <td>{{ phase.dateFin }}</td>
+                <td>{{ phase.dateFin is empty ? "" : phase.dateFin|date("d/m/Y") }}</td>
             </tr>
             <tr>
             <th>Tasks</th>

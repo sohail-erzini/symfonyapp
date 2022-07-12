@@ -33,21 +33,18 @@
             </tr>
             <tr>
                 <th>DateDebut</th>
-                <td>{{ tache.dateDebut }}</td>
+                <td>{{ tache.dateDebut is empty ? "" : tache.dateDebut|date("d/m/Y") }}</td>
             </tr>
            
             <tr>
                 <th>DateFin</th>
-                <td>{{ tache.dateFin }}</td>
+                <td>{{ tache.dateFin is empty ? "" : tache.dateFin|date("d/m/Y") }}</td>
             </tr>
             <tr>
                 <th>DateAffectation</th>
-                <td>{{ tache.dateAffectation }}</td>
+                <td>{{ tache.dateAffectation is empty ? "" : tache.dateAffectation|date("d/m/Y") }}</td>
             </tr>
-            <tr>
-                <th>DateModif</th>
-                <td>{{ tache.dateModif }}</td>
-            </tr>
+            
         </tbody>
     </table>
 
