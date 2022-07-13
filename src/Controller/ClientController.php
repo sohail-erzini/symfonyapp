@@ -87,7 +87,7 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_client_delete", methods={"POST"})
+     * @Route("/{id}", name="app_client_delete", methods={"POST" , "GET"})
      */
     public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
     {

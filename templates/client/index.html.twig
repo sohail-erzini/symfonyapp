@@ -1,47 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client index{% endblock %}
+{% block title %}Clients{% endblock %}
 
 {% block body %}
-    <h1>Client index</h1>
+  
+  <div class="container mt-5">
+        <div class="row text-right">
+            <div class="col-11 mt-5">
+            <h1>Clients</h1>
+            </div>
+            <div class="col-1 float-right mt-5">
+                {% if is_granted("ROLE_OWNER") %}
+                    <a  href="{{ path('app_client_new')}}"><button type="button"  
+                        class="btn btn-primary btn-sm">
+                            Add</button> </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-3">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Client</th>
+                            <th scope="col" class="text-center">E-mail</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for client in clients %}
+                        {% set url= path ('app_client_show', {id: client.id}) %}
+                            <tr class="table-primary">
+                                <th scope="row" class="text-center"> <a href="{{ url }}">{{client.ClientNom}}{{client.ClientPrenom}}</a></th>
+                                <td class="text-center">{{ client.ClientEmail }}</td>
+                                <td class="text-center"> 
+                                    <a class="btn btn-primary btn-sm" 
+                                    href="{{ path('app_client_show',{"id": client.id}) }}" role="button">
+                                    <i class="fa fa-info"></i></a>
+                                    <a class="btn btn-success btn-sm" 
+                                    href="{{ path('app_client_edit',{"id": client.id}) }}" role="button">
+                                    <i class="fa fa-edit"></i></a>
+                                    {{ include('client/_delete_form.html.twig') }}
+                                    {# <a class="btn btn-danger btn-sm" 
+                                    href="{{ path('app_client_delete',{"id": client.id}) }}" role="button">
+                                    <i class="fa fa-trash"></i></a> #}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table> 
+        </div>
+    </div>  
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>ClientNom</th>
-                <th>ClientPrenom</th>
-                <th>ClientRaisonSociale</th>
-                <th>ClientSiege</th>
-                <th>ClientTel</th>
-                <th>ClientEmail</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for client in clients %}
-            <tr>
-                <td>{{ client.id }}</td>
-                <td>{{ client.ClientNom }}</td>
-                <td>{{ client.ClientPrenom }}</td>
-                <td>{{ client.ClientRaisonSociale }}</td>
-                <td>{{ client.ClientSiege }}</td>
-                <td>{{ client.ClientTel }}</td>
-                <td>{{ client.ClientEmail }}</td>
-                <td>
-                    <a href="{{ path('app_client_show', {'id': client.id}) }}">show</a>
-                    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {# {% if is_granted("ROLE_OWNER") %} #}
-       <a href="{{ path('app_client_new') }}">Create new</a>
-    {# {% endif %} #}
+    
     
 {% endblock %}

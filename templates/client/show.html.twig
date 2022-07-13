@@ -1,46 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client{% endblock %}
+{% block title %}{{ client.ClientNom }} {{ client.ClientPrenom }}{% endblock %}
 
 {% block body %}
-    <h1>Client</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ client.id }}</td>
-            </tr>
-            <tr>
-                <th>ClientNom</th>
-                <td>{{ client.ClientNom }}</td>
-            </tr>
-            <tr>
-                <th>ClientPrenom</th>
-                <td>{{ client.ClientPrenom }}</td>
-            </tr>
-            <tr>
-                <th>ClientRaisonSociale</th>
-                <td>{{ client.ClientRaisonSociale }}</td>
-            </tr>
-            <tr>
-                <th>ClientSiege</th>
-                <td>{{ client.ClientSiege }}</td>
-            </tr>
-            <tr>
-                <th>ClientTel</th>
-                <td>{{ client.ClientTel }}</td>
-            </tr>
-            <tr>
-                <th>ClientEmail</th>
-                <td>{{ client.ClientEmail }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_client_index') }}">back to list</a>
-
-    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
-
-    {{ include('client/_delete_form.html.twig') }}
+<div class="container mt-5">
+        <div class="row">
+            <div class="col-6 mt-2">
+                <h2 class="display-4 mt-5"> {{ client.ClientNom }} {{ client.ClientPrenom }} </h2>
+                <small></small>
+                <hr>
+            </div>
+        </div>
+        <div class="row border rounded">
+            <div class="col-6 text-center mt-3">
+                <h6>E-Mail: {{ client.ClientEmail }}<h6></br>
+                <h6>Téléphone: {{ client.ClientTel }}<h6></br>
+                
+            </div>
+            <div class="col-6  text-center mt-3">
+                <h6>Raison Sociale: {{ client.ClientRaisonSociale }}<h6></br>
+                <h6>Siège: {{ client.ClientSiege }}<h6></br> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 mt-3">
+                <a href="{{ path('app_client_index') }}">
+                <button type="button" class="btn btn-primary btn-sm">Return</button></a>
+            </div>
+            <div class="col-2 mt-3">
+               <a class="btn btn-success btn-sm" 
+                href="{{ path('app_client_edit',{"id": client.id}) }}" role="button">
+                <i class="fa fa-edit"></i></a>
+                {{ include('client/_delete_form.html.twig') }}
+            </div>
+        </div>
+    
 {% endblock %}
