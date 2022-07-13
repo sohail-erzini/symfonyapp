@@ -50,6 +50,7 @@ class Tache
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="taches")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $user;
 

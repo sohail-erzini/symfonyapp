@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LivrableRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=LivrableRepository::class)
@@ -29,6 +30,7 @@ class Livrable
 
     /**
      * @ORM\ManyToOne(targetEntity=Tache::class, inversedBy="livrables")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $Tache;
 
