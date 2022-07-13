@@ -1,4 +1,23 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+   <div class="row">
+        <div class="col-6 text-center">
+            <label>Employe:</label>
+            {{form_row(form.user , {'label': ' '})}}</br>
+            <label>Phase:</label>
+            {{form_row(form.phase , {'label': ' '})}}</br>
+             <a href="{{ path('app_tache_index') }}">Return</a> &nbsp;
+        </div>
+
+        <div class="col-6 text-center">
+            <label>Title:</label>
+            {{form_row(form.title , {'label': ' '})}}</br>
+            <label>Priorite:</label>
+            {{form_row(form.priorite , {'label': ' '})}}</br>
+            <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+        </div>
+        
+    </div>
+   
+    
+    
 {{ form_end(form) }}

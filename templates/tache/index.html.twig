@@ -52,42 +52,4 @@
                 </table> 
         </div>
     </div>  
-    {# <h1>Tache index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Priorite</th>
-                <th>Projet</th>
-                <th>Phase</th>
-                <th>Employee</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tache in taches %}
-            <tr>
-                
-                <td>{{ tache.title }}</td>
-                <td>{{ tache.status }}</td>
-                <td>{{ tache.priorite }}</td>
-                <td>{{tache.phase.projet.intitule}}</td>
-                <td>{{tache.phase.intitule}}</td>
-                <td>{{tache.user.LastName}} {{tache.user.FirstName}}</td>
-                <td>
-                    <a href="{{ path('app_tache_show', {'id': tache.id}) }}">show</a>
-                    <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_tache_new') }}">Create new</a> #}
 {% endblock %}
