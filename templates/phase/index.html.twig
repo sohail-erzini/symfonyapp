@@ -1,9 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Phase index{% endblock %}
+{% block title %}Phases{% endblock %}
 
 {% block body %}
-    <h1>Phase index</h1>
+<div class="container mt-5">
+        <div class="row text-right">
+            <div class="col-11 mt-5">
+            <h1>Phases</h1>
+            </div>
+            <div class="col-1 float-right mt-5">
+                {% if is_granted("ROLE_OWNER") or  is_granted("ROLE_MANAGER")%}
+                    <a  href="{{ path('app_phase_new')}}"><button type="button"  
+                        class="btn btn-primary btn-sm">
+                            Add</button> </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-3">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Intitule</th>
+                            <th scope="col" class="text-center">Etat</th>
+                            <th scope="col" class="text-center">Projet</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for phase in phases %}
+                        {% set url= path ('app_phase_show', {id: phase.id}) %}
+                            <tr class="table-primary">
+                                <th scope="row" class="text-center"> <a href="{{ url }}">{{phase.intitule}}</a></th>
+                                <td class="text-center">{{ phase.status }}</td>
+                                <td class="text-center"><a href="{{ path('app_projet_show',{"id": phase.projet.id}) }}">{{ phase.projet.intitule }}</a></td>
+                                <td class="text-center"> 
+                                    <a class="btn btn-primary btn-sm" 
+                                    href="{{ path('app_phase_show',{"id": phase.id}) }}" role="button">
+                                    <i class="fa fa-info"></i></a>
+                                    <a class="btn btn-success btn-sm" 
+                                    href="{{ path('app_phase_edit',{"id": phase.id}) }}" role="button">
+                                    <i class="fa fa-edit"></i></a>
+                                    {{ include('phase/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table> 
+        </div>
+    </div>  
+    {# <h1>Phase index</h1>
 
     <table class="table">
         <thead>
@@ -38,5 +83,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_phase_new') }}">Create new</a>
+    <a href="{{ path('app_phase_new') }}">Create new</a> #}
 {% endblock %}

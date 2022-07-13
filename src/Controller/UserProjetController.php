@@ -81,9 +81,6 @@ class UserProjetController extends AbstractController
 
             return $this->redirectToRoute('app_projet_index'  
             );
-
-
-
         }
 
         return $this->render('projet/associerEmployee.html.twig' , [
