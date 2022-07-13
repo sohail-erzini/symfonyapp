@@ -1,4 +1,61 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+
+    
+        {{ form_start(form) }}
+            <div class="row text-center">
+                <div class="col-6">
+                    <div class="row "> 
+                        <div class="col align self-center"> 
+                            <label >Nom:</label><br>
+                            {{ form_row(form.ClientNom, {'label': ' ', 'attr':
+                            {'placeholder':'Nom...'}})  }}
+                        </div>
+                    </div>
+                
+                    <div class="row "> 
+                        <div class="col align self-center"> 
+                            <label >Prénom:</label><br>
+                            {{ form_row(form.ClientPrenom, {'label': ' ', 'attr':
+                            {'placeholder':'Prenom...'}})  }}
+                        </div>
+                    </div>
+                    <div class="row "> 
+                        <div class="col align self-center"> 
+                            <label >E-mail:</label><br>
+                            {{ form_row(form.ClientEmail, {'label': ' ', 'attr':
+                            {'placeholder':'ex : mail@mail.com...'}})  }}
+                            
+                        </div>
+                        <a class="mt-4" href="{{ path('app_client_index') }}">Return</a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row "> 
+                        <div class="col align self-center"> 
+                            <label >Telephone:</label><br>
+                            {{ form_row(form.ClientTel, {'label': ' ', 'attr':
+                            {'placeholder':'téléphone...'}})  }}
+                        </div>
+                    </div>
+                    <div class="row "> 
+                        <div class="col align self-center"> 
+                            <label >Raison Sociale:</label><br>
+                            {{ form_row(form.ClientRaisonSociale, {'label': ' ', 'attr':
+                            {'placeholder':'raison sociale...'}})  }}
+                        </div>
+                    </div>
+                    <div class="row "> 
+                        <div class="col align self-center"> 
+                            <label >Telephone:</label><br>
+                            {{ form_row(form.ClientSiege, {'label': ' ', 'attr':
+                            {'placeholder':'siege...'}})  }}
+                             <button class="btn btn-primary btn-sm mt-3">{{ button_label|default('Save') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+        {{ form_end(form) }}
+  
+
