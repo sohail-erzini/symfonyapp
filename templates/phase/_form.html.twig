@@ -1,4 +1,13 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="row">
+        </div class="col-6 text-center">
+            <label>Projet:</label>
+            {{form_row(form.projet , {'label': ' '})}}</br>
+            <label>Intitule:</label>
+            {{form_row(form.intitule , {'label': ' '})}}</br>
+        </div>
+    </div>
+    <a href="{{ path('app_phase_index') }}">Return</a> &nbsp;
+    <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+    
 {{ form_end(form) }}
