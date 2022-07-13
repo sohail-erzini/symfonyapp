@@ -86,8 +86,11 @@ class UserProjetController extends AbstractController
 
         }
 
-        return $this->render('projet/associerEmployee.html.twig' , ['AssocEmployeForm' => $form->createView()
-    ]);
+        return $this->render('projet/associerEmployee.html.twig' , [
+            'AssocEmployeForm' => $form->createView() , 
+            'projet' => $projet
+        
+        ]);
     }
 
 

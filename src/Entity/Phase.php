@@ -6,6 +6,7 @@ use App\Repository\PhaseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=PhaseRepository::class)
@@ -31,6 +32,7 @@ class Phase
 
     /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="phases")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $projet;
 

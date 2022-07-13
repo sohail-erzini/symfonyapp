@@ -1,9 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Projet index{% endblock %}
+{% block title %}Projets{% endblock %}
 
 {% block body %}
-    <h1>Projets</h1>
+
+<div class="container mt-5">
+        <div class="row text-right">
+            <div class="col-11 mt-5">
+            <h1>Projets</h1>
+            </div>
+            <div class="col-1 float-right mt-5">
+                {% if is_granted("ROLE_OWNER") %}
+                    <a  href="{{ path('app_projet_new')}}"><button type="button"  
+                        class="btn btn-primary btn-sm">
+                            Add</button> </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-3">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Intitule</th>
+                            <th scope="col" class="text-center">Etat</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for projet in projets %}
+                        {% set url= path ('app_projet_show', {id: projet.id}) %}
+                            <tr class="table-primary">
+                                <th scope="row" class="text-center"> <a href="{{ url }}">{{projet.intitule}}</a></th>
+                                <td class="text-center">{{ projet.etat }}</td>
+                                <td class="text-center"> 
+                                    <a class="btn btn-primary btn-sm" 
+                                    href="{{ path('app_projet_show',{"id": projet.id}) }}" role="button">
+                                    <i class="fa fa-info"></i></a>
+                                    <a class="btn btn-success btn-sm" 
+                                    href="{{ path('app_projet_edit',{"id": projet.id}) }}" role="button">
+                                    <i class="fa fa-edit"></i></a>
+                                    {{ include('projet/_delete_form.html.twig') }}
+                                    {# <a class="btn btn-danger btn-sm" 
+                                    href="{{ path('app_client_delete',{"id": client.id}) }}" role="button">
+                                    <i class="fa fa-trash"></i></a> #}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table> 
+        </div>
+    </div>  
+    {# <h1>Projets</h1>
 
     <table class="table">
         <thead>
@@ -42,8 +89,8 @@
         {% endfor %}
         </tbody>
     </table>
-    {# {% if is_granted("ROLE_OWNER") %} #}
+    {% if is_granted("ROLE_OWNER") %} 
         <a href="{{ path('app_projet_new') }}">Create new</a>
-    {# {% endif %} #}
+     {% endif %} #}
     
 {% endblock %}

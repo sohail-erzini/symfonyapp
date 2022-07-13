@@ -6,11 +6,19 @@
 <div class="container mt-5">
     <div class="row">
     <div class="col mt-5">
+        <h1>Associer Employe</h1>
         {{ form_start(AssocEmployeForm)}}
-
-        {{ form_widget(AssocEmployeForm)}}
-        <button type="submit" class="btn btn-primary">
-            Associer </button>
+            <div class="row">
+                </div class="col-6 text-center">
+                <label>Employee:</label>
+                {{form_row(AssocEmployeForm.Employe , {'label': ' '})}}</br>
+                <label>Role:</label>
+                {{form_row(AssocEmployeForm.role , {'label': ' '})}}</br>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-sm">Associer </button>
+            <a class="mt-5" href="{{ path('app_projet_show', {'id': projet.id}) }}">Return</a>
 
         {{ form_end(AssocEmployeForm)}}
     </div>

@@ -21,6 +21,7 @@
             <div class="col-6  text-center">
                 <h6>Date Debut: {{ projet.dateDebut is empty ? "" : projet.dateDebut|date("d/m/Y") }}<h6>
                 <h6>Date Fin: {{ projet.dateFin is empty ? "" : projet.dateFin|date("d/m/Y") }}<h6> 
+                <h6>Client: {{ projet.client.ClientNom }} {{ projet.client.ClientPrenom }}<h6> 
                 <h6>Description: {{ projet.description }}<h6> 
             </div>
         </div>
@@ -46,10 +47,7 @@
             </div>
             <div class="col-2 mt-3">
                 <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">
-                <button type="button"  class="btn btn-success btn-sm">Edit</button></a>
-
-                <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">
-                <button type="button"  class="btn btn-danger btn-sm">Remove</button></a>
+                <button type="button"  class="btn btn-success btn-sm"> <i class="fa fa-edit"></i></button></a>
 
                     {{ include('projet/_delete_form.html.twig') }} 
             </div>

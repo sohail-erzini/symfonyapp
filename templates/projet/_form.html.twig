@@ -1,4 +1,55 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="row text-center">
+        <div class="col-6">
+            <div class="row "> 
+                    <div class="col align self-center"> 
+                        <label>Client:</label>
+                        {{ form_row(form.client , {'label': ' '}) }}
+                    </div>
+            </div>
+            <div class="row "> 
+                <div class="col align self-center"> 
+                    <label >Intitule:</label><br>
+                    {{ form_row(form.intitule, {'label': ' ', 'attr':
+                    {'placeholder':'Intitule...'}})  }}
+                </div>
+            </div>
+            
+            <div class="row "> 
+                <div class="col align self-center"> 
+                    <label >Categorie:</label><br>
+                    {{ form_row(form.Categorie, {'label': ' ', 'attr':
+                    {'placeholder':'catégorie...'}})  }}
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-6">
+            <div class="row "> 
+                <div class="col mt-5 align self-center"> 
+                    <label >Budget:</label><br>
+                    {{ form_row(form.budget, {'label': ' ', 'attr':
+                    {'placeholder':'Budget...'}})  }}
+                </div>
+            </div>
+            <div class="row "> 
+                <div class="col align self-center"> 
+                    <label >Description:</label><br>
+                    {{ form_row(form.description, {'label': ' ', 'attr':
+                    {'placeholder':'description...'}})  }}
+                   
+                </div>
+            </div>
+            <div class="row "> 
+                <div class="col align self-center mt-3"> 
+                   <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+                    <a class="mt-5" href="{{ path('app_projet_index') }}">Return</a>
+                </div>
+            </div>
+            
+        </div>
+</div>
+    
 {{ form_end(form) }}
+
+
