@@ -30,7 +30,7 @@
                         {% for client in clients %}
                         {% set url= path ('app_client_show', {id: client.id}) %}
                             <tr class="table-primary">
-                                <th scope="row" class="text-center"> <a href="{{ url }}">{{client.ClientNom}}{{client.ClientPrenom}}</a></th>
+                                <th scope="row" class="text-center"> <a href="{{ url }}">{{client.ClientNom}} {{client.ClientPrenom}}</a></th>
                                 <td class="text-center">{{ client.ClientEmail }}</td>
                                 <td class="text-center"> 
                                     <a class="btn btn-primary btn-sm" 
