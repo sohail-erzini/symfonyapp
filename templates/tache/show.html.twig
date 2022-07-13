@@ -1,94 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tache{% endblock %}
+{% block title %}{{tache.title}}{% endblock %}
 
 {% block body %}
-    <h1>Tache</h1>
+<div class="container mt-5">
+        <div class="row">
+            <div class="col-6 mt-2">
+                <h2 class="display-4 mt-5"> {{ tache.title | upper}} </h2>
+                <small></small>
+                <hr>
+            </div>
+        </div>
+        <div class="row border rounded">
+            <div class="col-6 text-center mt-3">
+                <h6>Etat: {{ tache.status }}<h6></br>
+                <h6>Priorite: {{ tache.priorite }}<h6></br>
+                <h6>Employe: {{tache.user.LastName}} {{tache.user.FirstName}}<h6></br>
+                <h6>Projet: {{tache.phase.projet.intitule}}<h6></br>
+                
+               
+            </div>
+            <div class="col-6  text-center mt-3">
+                <h6>Date Affectation: {{ tache.dateAffectation is empty ? "" : tache.dateAffectation|date("d/m/Y") }}<h6></br>
+                <h6>Date Debut: {{ tache.dateDebut is empty ? "" : tache.dateDebut|date("d/m/Y") }}<h6></br>
+                <h6>Date Fin: {{ tache.dateFin is empty ? "" : tache.dateFin|date("d/m/Y") }}<h6></br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 mt-3">
+                {% if is_granted("ROLE_MANAGER") or is_granted("ROLE_OWNER") %} 
+                    <a href="{{ path('app_tache_index') }}">
+                    <button type="button" class="btn btn-primary btn-sm">Return</button></a>
+                {% endif %}
+                {% if is_granted("ROLE_DEV") %}
+                    <a href="{{ path('app_tache_mytasks') }}">
+                    <button type="button" class="btn btn-primary btn-sm">Return</button></a>
+                {% endif %}
+                
+                {% if is_granted("ROLE_DEV") and tache.status == "Open" %} 
+                    <a href="{{ path('app_tache_start', {'id': tache.id}) }}"><button type="button" class="btn btn-success btn-sm">Start Tache</button></a>
+                {% endif %}
+            </div>
+            <div class="col-2 mt-3">
+            {% if is_granted("ROLE_MANAGER") or is_granted("ROLE_OWNER") %} 
+                <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">
+                <button type="button"  class="btn btn-success btn-sm"> <i class="fa fa-edit"></i></button></a>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Title</th>
-                <td>{{ tache.title }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ tache.status }}</td>
-            </tr>
-            <tr>
-                <th>Projet</th>
-                <td>{{tache.phase.projet.intitule}}</td>
-            </tr>
-            <tr>
-                <th>Phase</th>
-                <td>{{tache.phase.intitule}}</td>
-            </tr>
-             <tr>
-                <th>Employee</th>
-                <td>{{tache.user.LastName}} {{tache.user.FirstName}}</td>
-            </tr>
-            <tr>
-                <th>Priorite</th>
-                <td>{{ tache.priorite }}</td>
-            </tr>
-            <tr>
-                <th>DateDebut</th>
-                <td>{{ tache.dateDebut is empty ? "" : tache.dateDebut|date("d/m/Y") }}</td>
-            </tr>
-           
-            <tr>
-                <th>DateFin</th>
-                <td>{{ tache.dateFin is empty ? "" : tache.dateFin|date("d/m/Y") }}</td>
-            </tr>
-            <tr>
-                <th>DateAffectation</th>
-                <td>{{ tache.dateAffectation is empty ? "" : tache.dateAffectation|date("d/m/Y") }}</td>
-            </tr>
-            
-        </tbody>
-    </table>
+                {{ include('tache/_delete_form.html.twig') }} 
+            {% endif %}
+            </div>
+        </div>
+        <hr class=" mx-auto w-25 p-1" style="background-color: #ADB5BD;" >
 
-<h2>Livrables</h2>
-<table class="table">
-    <thead>
-    <tr>
+        <h2>Livrables</h2>
+            <div class="row mb-3">
+                <a href="{{ path('app_livrable_new' , {"id": tache.id}) }}"><button type="button"  
+                        class="btn btn-primary">
+                           <i class="fa fa-upload"></i>  Add</button> </a>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Intitule</th>
+                        <th scope="col">Document</th>
+                        {% if is_granted("ROLE_DEV") and tache.status == "In Progress" %}
+                            <th>Actions</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for liv in livrable %}
+                        <tr>
+                            <td>{{ liv.intitule }}</td>
+                            <td><a download href="{{  ('uploads/fichiers/' ~ liv.DocFile) }}"><i class="fa fa-download"> Download PDF</a></i></td>
+                            {% if is_granted("ROLE_DEV") and tache.status == "In Progress" %}
+                                <td> {{ include('tache/_delete_livrable.html.twig') }} </td>
+                            {% endif %}
+                        </tr>
 
-        <th>Intitule</th>
-        <th>Document</th>
-        {% if is_granted("ROLE_DEV") and tache.status == "In Progress" %}
-            <td>Actions</td>
-        {% endif %}
-    </tr>
-    </thead>
-    <tbody>
-    {% for liv in livrable %}
-    <tr>
-        <td>{{ liv.intitule }}</td>
-        <td><a download href="{{  ('uploads/fichiers/' ~ liv.DocFile) }}">Telecharger(PDF)</a></td>
-        {% if is_granted("ROLE_DEV") and tache.status == "In Progress" %}
-            <td> {{ include('tache/_delete_livrable.html.twig') }} </td>
-        {% endif %}
-    </tr>
-
-    {% endfor %}
-    </table>
-
-    <a href="{{ path('app_tache_index') }}">back to list</a>
-    
-    <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
-    {% if is_granted("ROLE_DEV") and tache.status == "In Progress" %}
-        <a href="{{ path('app_livrable_new',{'id':tache.id }) }}">Add liv</a>
-    {% endif %}
-    {% if is_granted("ROLE_DEV") and tache.status == "Open" %} 
-       <a href="{{ path('app_tache_start', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">Start Tache</button></a>
-     {% endif %}
-     {% if is_granted("ROLE_DEV") and tache.status == "In Progress" and livrable != null %} 
-       <a href="{{ path('app_tache_end', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">End Tache</button></a>
-     {% endif %}
-      {% if is_granted("ROLE_MANAGER") and tache.status == "Waiting For Validation" %} 
-       <a href="{{ path('app_tache_validate', {'id': tache.id}) }}"><button type="button" class="btn btn-primary btn-sm">Valider Tache</button></a>
-     {% endif %}
-    
-
-    {{ include('tache/_delete_form.html.twig') }}
+                    {% endfor %}
+                </tbody>
+            </table>
+                {% if is_granted("ROLE_DEV") and tache.status == "In Progress" and livrable != null %} 
+                    <a href="{{ path('app_tache_end', {'id': tache.id}) }}"><button type="button" class="btn btn-success btn-sm">End Tache</button></a>
+                {% endif %}
+                {% if is_granted("ROLE_MANAGER") and tache.status == "Waiting For Validation" %} 
+                    <a href="{{ path('app_tache_validate', {'id': tache.id}) }}"><button type="button" class="btn btn-success btn-sm">Valider Tache</button></a>
+                {% endif %}
+    </div>
+   
 {% endblock %}
