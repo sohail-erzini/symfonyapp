@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -209,4 +210,23 @@ class SecurityController extends AbstractController
 
         return $this->render('security/userProfile.html.twig' , ['user' => $user]);
     }
+    /**
+     * @Route ("/upload/", name="upload_image")
+     */
+    public function UploadImage(Request $request, FlashBagInterface $flashBag)
+    {
+        $image = $request->files->get('image');
+        $image_name= $image->getClientOriginalName();
+        $image->move($this->getParameter("upload_image"),$image_name);
+        $user = $this->security->getUser();
+        $user->setImage($image_name);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+        $flashBag->add('success', 'Image modifiée avec succès');
+return $this->redirectToRoute('security_profile');
+
+    }
+
+
 }
