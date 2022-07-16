@@ -25,10 +25,12 @@
 							</button> #}
 						</div>
 							<div class="col-9 ">
+							{% if app.user %}
 							<form action="{{ path('search') }}" method="get" class="d-flex">
 							<input class="form-control me-sm-2" type="search" placeholder="Search For projects" aria-label="Search"  id="projer" name="proj">
 							<button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
 							</form>
+							{% endif %}
 						</div>
 												
 											

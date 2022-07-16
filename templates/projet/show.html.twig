@@ -76,14 +76,29 @@
                     </thead>
                     <tbody>
                         {% for employee in employees %}
+                            
                             <tr class="table-primary">
-                                <th scope="row">
-                                    <img src="{{ asset('/ProfileImg/'~employee.user.image) }}" width="25"
-                                         height="25" class="img-fluid my-2 rounded-circle" >
-                                <td><a href="#">{{employee.user.username}}</a></td>
-                                <td>{{employee.user.LastName}} {{employee.user.FirstName}}</td>
-                                <td>{{employee.RoleInProjet}}</td>
-                                <td> 
+                                {% if employee.user.image == null %}
+                                    {% if employee.user.sexe == 'M' %}
+                                        <th style="vertical-align:middle;" scope="row">
+                                        <img src="{{ asset('/ProfileImg/M.jpeg') }}" width="75"
+                                            height="75" class=" float-left mr-3 img-fluid my-2 rounded-circle" ></th>
+                                    {% else %}
+                                        <th style="vertical-align:middle;" scope="row">
+                                        <img src="{{ asset('/ProfileImg/F.png') }}" width="75"
+                                            height="75" class=" float-left mr-3 img-fluid my-2 rounded-circle"></th>
+                                    {% endif %}
+
+                                {% else %}
+                                    <th scope="row">
+                                        <img src="{{ asset('/ProfileImg/'~employee.user.image) }}" width="75"
+                                            height="75" class="img-fluid my-2 rounded-circle" ></th>
+                                {% endif %}
+                                
+                                <td style="vertical-align:middle;">{{employee.user.username}}</a></td>
+                                <td style="vertical-align:middle;">{{employee.user.LastName}} {{employee.user.FirstName}}</td>
+                                <td style="vertical-align:middle;">{{employee.RoleInProjet}}</td>
+                                <td style="vertical-align:middle;"> 
                                     <a class="btn btn-primary btn-sm" 
                                     href="" role="button">
                                     <i class="fa fa-info"></i>
