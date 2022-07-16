@@ -44,6 +44,8 @@ security:
         # - { path: ^/projet, roles: ROLE_OWNER }
         # - { path: '^/client/', roles: [ROLE_OWNER, ROLE_MANAGER] }
         # - { path: '^/client/new', roles: [ROLE_OWNER] }
+        - { path: '^/users', roles: [ROLE_OWNER , ROLE_MANAGER] }
+        - { path: '^/projet', roles: [ROLE_OWNER  , ROLE_MANAGER , ROLE_DEV] }
 
 when@test:
     security:

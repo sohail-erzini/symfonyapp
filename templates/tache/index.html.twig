@@ -9,7 +9,7 @@
             <h1>Taches</h1>
             </div>
             <div class="col-1 float-right mt-5">
-                {% if is_granted("ROLE_OWNER") or  is_granted("ROLE_MANAGER")%}
+                {% if is_granted("ROLE_MANAGER") %}
                     <a  href="{{ path('app_tache_new')}}"><button type="button"  
                         class="btn btn-primary btn-sm">
                             Add</button> </a>
@@ -41,10 +41,12 @@
                                     <a class="btn btn-primary btn-sm" 
                                     href="{{ path('app_tache_show',{"id": tache.id}) }}" role="button">
                                     <i class="fa fa-info"></i></a>
+                                    {% if is_granted("ROLE_MANAGER") %}
                                     <a class="btn btn-success btn-sm" 
-                                    href="{{ path('app_tache_edit',{"id": tache.id}) }}" role="button">
-                                    <i class="fa fa-edit"></i></a>
-                                    {{ include('tache/_delete_form.html.twig') }}
+                                        href="{{ path('app_tache_edit',{"id": tache.id}) }}" role="button">
+                                        <i class="fa fa-edit"></i></a>
+                                        {{ include('tache/_delete_form.html.twig') }}
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

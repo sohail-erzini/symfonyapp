@@ -36,10 +36,12 @@
                                     <a class="btn btn-primary btn-sm" 
                                     href="{{ path('app_projet_show',{"id": projet.id}) }}" role="button">
                                     <i class="fa fa-info"></i></a>
-                                    <a class="btn btn-success btn-sm" 
-                                    href="{{ path('app_projet_edit',{"id": projet.id}) }}" role="button">
-                                    <i class="fa fa-edit"></i></a>
-                                    {{ include('projet/_delete_form.html.twig') }}
+                                    {% if is_granted("ROLE_OWNER") %}
+                                        <a class="btn btn-success btn-sm" 
+                                        href="{{ path('app_projet_edit',{"id": projet.id}) }}" role="button">
+                                        <i class="fa fa-edit"></i></a>
+                                        {{ include('projet/_delete_form.html.twig') }}
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

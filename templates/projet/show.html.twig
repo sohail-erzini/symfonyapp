@@ -46,52 +46,59 @@
 
             </div>
             <div class="col-2 mt-3">
+            {% if is_granted("ROLE_OWNER") %}
                 <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">
                 <button type="button"  class="btn btn-success btn-sm"> <i class="fa fa-edit"></i></button></a>
 
                     {{ include('projet/_delete_form.html.twig') }} 
+            {% endif %}
             </div>
         </div>
         <hr class=" mx-auto w-25 p-1" style="background-color: #ADB5BD;" >
-
-        <h2>Employees</h2>
-            <div class="row mb-3">
-                <a href="{{ path('app_user_projet_assoc' , {"id": projet.id}) }}"><button type="button"  
-                        class="btn btn-primary btn-sm">
-                            Add Employe</button> </a>
-            </div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Employe</th>
-                        <th scope="col">FullName</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for employee in employees %}
-                        <tr class="table-primary">
-                            <th scope="row"> 
-                            <a href=""><img class="float-left mr-3"  src="" 
-                                alt="image" style="width:100px;height:100px;"/></a></th>
-                            <td><a href="#">{{employee.user.username}}</a></td>
-                            <td>{{employee.user.LastName}} {{employee.user.FirstName}}</td>
-                            <td>{{employee.RoleInProjet}}</td>
-                            <td> 
-                                <a class="btn btn-primary btn-sm" 
-                                href="" role="button">
-                                Details
-                                </a>
-                                <a class="btn btn-danger btn-sm" 
-                                href="{{ path('app_user_projet_retirer' , {"id": employee.id})  }}" role="button">
-                                Retirer</a>
-                            </td>
+        {% if is_granted("ROLE_OWNER")  or is_granted("ROLE_MANAGER") %}
+                <h2>Employees</h2>
+                <div class="row mb-3">
+                {% if is_granted("ROLE_OWNER") %}
+                    <a href="{{ path('app_user_projet_assoc' , {"id": projet.id}) }}"><button type="button"  
+                            class="btn btn-primary btn-sm">
+                                Add Employe</button> </a>
+                {% endif %}
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Employe</th>
+                            <th scope="col">FullName</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Actions</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for employee in employees %}
+                            <tr class="table-primary">
+                                <th scope="row"> 
+                                <a href=""><img class="float-left mr-3"  src="" 
+                                    alt="image" style="width:100px;height:100px;"/></a></th>
+                                <td><a href="#">{{employee.user.username}}</a></td>
+                                <td>{{employee.user.LastName}} {{employee.user.FirstName}}</td>
+                                <td>{{employee.RoleInProjet}}</td>
+                                <td> 
+                                    <a class="btn btn-primary btn-sm" 
+                                    href="" role="button">
+                                    <i class="fa fa-info"></i>
+                                    </a>
+                                    {% if is_granted("ROLE_OWNER") %}
+                                    <a class="btn btn-danger btn-sm" 
+                                    href="{{ path('app_user_projet_retirer' , {"id": employee.id})  }}" role="button">
+                                    <i class="fa fa-remove"></i></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        {% endif %}
 
 
         <h2>Phases</h2>
@@ -113,9 +120,9 @@
                     <td>{{phase.status}}</td>
 
                     <td>
-                        <a class="btn btn-danger btn-sm"
+                        <a class="btn btn-primary btn-sm"
                            href="{{ path('app_phase_show' , {"id": phase.id})  }}" role="button">
-                            afficher</a>
+                            <i class="fa fa-info"></i></a>
                     </td>
                 </tr>
             {% endfor %}

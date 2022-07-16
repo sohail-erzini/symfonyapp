@@ -13,10 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as SecurityExtra;
 
 class LivrableController extends AbstractController
 {
     /**
+     * @SecurityExtra("is_granted('ROLE_DEV')")
      * @Route("{id}/livrable/new", name="app_livrable_new")
      */
     public function new(Request $request,$id,  SluggerInterface $slugger, Livrable $livrable=null,ManagerRegistry $doctrine):Response
@@ -72,6 +74,7 @@ class LivrableController extends AbstractController
     }
     //
     /**
+     * @SecurityExtra("is_granted('ROLE_DEV')")
      * @Route("/livrable/{id}", name="app_livrable_delete", methods={"POST"})
      */
     public function delete(Request $request, Livrable $livrable, LivrableRepository $livrableRepository): Response

@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
@@ -224,7 +225,7 @@ class SecurityController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
         $flashBag->add('success', 'Image modifiée avec succès');
-return $this->redirectToRoute('security_profile');
+        return $this->redirectToRoute('security_profile');
 
     }
 

@@ -12,7 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Security\Core\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as SecurityExtra;
+
+
 
 /**
  * @Route("/tache")
@@ -30,6 +34,7 @@ class TacheController extends AbstractController
 
 
     /**
+     * @SecurityExtra("is_granted('ROLE_DEV')")
      * @Route("/mytasks", name="app_tache_mytasks", methods={"GET"})
      */
     public function myTasksIndex( EntityManagerInterface $em): Response
@@ -50,6 +55,7 @@ class TacheController extends AbstractController
     }
 
     /**
+     * @SecurityExtra("is_granted('ROLE_MANAGER') or is_granted('ROLE_OWNER')")
      * @Route("/", name="app_tache_index", methods={"GET"})
      */
     public function index(TacheRepository $tacheRepository): Response
@@ -62,6 +68,7 @@ class TacheController extends AbstractController
     }
 
     /**
+     * @SecurityExtra("is_granted('ROLE_MANAGER')")
      * @Route("/new", name="app_tache_new", methods={"GET", "POST"})
      */
     public function new(Request $request, TacheRepository $tacheRepository): Response
@@ -87,6 +94,7 @@ class TacheController extends AbstractController
     }
 
     /**
+     * @SecurityExtra("is_granted('ROLE_MANAGER') or is_granted('ROLE_OWNER') or is_granted('ROLE_DEV')")
      * @Route("/{id}", name="app_tache_show", methods={"GET"})
      */
     public function show(Tache $tache, LivrableRepository $livrableRepository): Response
@@ -101,6 +109,7 @@ class TacheController extends AbstractController
     }
 
     /**
+     * @SecurityExtra("is_granted('ROLE_MANAGER')")
      * @Route("/{id}/edit", name="app_tache_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Tache $tache, TacheRepository $tacheRepository): Response
@@ -123,6 +132,7 @@ class TacheController extends AbstractController
     }
 
     /**
+     * @SecurityExtra("is_granted('ROLE_MANAGER')")
      * @Route("/{id}", name="app_tache_delete", methods={"POST"})
      */
     public function delete(Request $request, Tache $tache, TacheRepository $tacheRepository): Response
@@ -138,6 +148,7 @@ class TacheController extends AbstractController
 
 
     /**
+     * @SecurityExtra("is_granted('ROLE_DEV')")
      * @Route("/{id}/start", name="app_tache_start")
      */
     public function startTask(Request $request , $id , EntityManagerInterface $em)
@@ -176,6 +187,7 @@ class TacheController extends AbstractController
     }
 
     /**
+     * @SecurityExtra("is_granted('ROLE_DEV')")
      * @Route("/{id}/end", name="app_tache_end")
      */
     public function endTask(Request $request , $id , EntityManagerInterface $em)
@@ -218,6 +230,7 @@ class TacheController extends AbstractController
 
     
     /**
+     * @SecurityExtra("is_granted('ROLE_MANAGER')")
      * @Route("/{id}/validate", name="app_tache_validate")
      */
     public function validateTask(Request $request , $id , EntityManagerInterface $em)

@@ -34,6 +34,7 @@ class ProjetController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/new", name="app_projet_new", methods={"GET", "POST"})
      */
     public function new(Request $request, ProjetRepository $projetRepository): Response
@@ -81,6 +82,7 @@ class ProjetController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/{id}/edit", name="app_projet_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Projet $projet, ProjetRepository $projetRepository): Response
@@ -102,6 +104,7 @@ class ProjetController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/{id}", name="app_projet_delete", methods={"POST"})
      */
     public function delete(Request $request, Projet $projet, ProjetRepository $projetRepository): Response
@@ -116,6 +119,7 @@ class ProjetController extends AbstractController
 
     
     /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/{id}/launch", name="app_projet_launch")
      */
     public function launchProjet($id , EntityManagerInterface $em)
@@ -143,6 +147,7 @@ class ProjetController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/{id}/finish", name="app_projet_finish")
      */
     public function finishProjet($id , EntityManagerInterface $em)
@@ -171,6 +176,7 @@ class ProjetController extends AbstractController
 
 
     /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/{id}/cancel", name="app_projet_cancel")
      */
     public function cancelProjet($id , EntityManagerInterface $em)

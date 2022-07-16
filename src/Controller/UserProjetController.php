@@ -12,10 +12,12 @@ use App\Entity\User;
 use App\Entity\UserProjet;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class UserProjetController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/projet/{id}/addemploye", name="app_user_projet_assoc")
      */
     public function associateEmploye(Request $request , EntityManagerInterface $em , $id): Response
@@ -92,6 +94,7 @@ class UserProjetController extends AbstractController
 
 
      /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/projet/{id}/retireremploye", name="app_user_projet_retirer")
      */
     public function retirerEmploye($id,  EntityManagerInterface $em )
