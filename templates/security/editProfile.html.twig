@@ -1,18 +1,97 @@
 {%  extends 'base.html.twig' %}
-    {% block title %}edit profile{% endblock %}
+    {% block title %}Edit profile{% endblock %}
 
 {% block body %}
     <div class="container mt-5">
-        <div class="row">
-            <div class="col mt-5">
-                {{form_start(editProfileForm)}}
-
-                    {{form_widget(editProfileForm)}}
-
-                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                {{form_end(editProfileForm)}}
-
+        <div class="row text-center mt-5"> 
+            <div class="col-6 mt-5 align self-center">
+                {{ form_start(form) }}
+                    <div class="row "> 
+                        <div class="col align self-center"> 
+                            <label >Email Adress</label><br>
+                            {{ form_row(form.Email, {'label': ' ', 'attr':
+                            {'placeholder':'Email address...'}})  }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                            <label >Password</label><br>
+                            {{ form_row(form.Password, {'label': ' ', 'attr':
+                            {'placeholder':'Password...'}}) }}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col align self-center">
+                            <label >username</label><br>
+                            {{ form_row(form.Username, {'label': ' ', 'attr':
+                            {'placeholder':'Username..'}}) }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >FirstName</label><br>
+                        {{ form_row(form.FirstName, {'label': ' ', 'attr':
+                        {'placeholder':'FirstName...'}}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col align self-center">
+                        <label >LastName</label><br>
+                        {{ form_row(form.LastName, {'label': ' ', 'attr':
+                        {'placeholder':'LastName...'}}) }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center mt-4">
+                            <a href="{{path('security_profile')}}">Return</a>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-6">
+                    
+                    <div class="row ">
+                        <div class="col mt-5 align self-center">
+                        <label >DateEmbauche</label>
+                        {{ form_row(form.DateEmbauche, {'label': ' ', 'attr':
+                        {'placeholder':'Recrutement Date JJ/MM//AAAA'}}) }}
+                        </div>
+                    </div>
+                    
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >Matricule</label><br>
+                    {{ form_row(form.Matricule, {'label': ' ', 'attr':
+                        {'placeholder':'Matricule'}}) }}
+                    </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >Nationalite</label><br>
+                    {{ form_row(form.Nationalite, {'label': ' ', 'attr':
+                        {'placeholder':'Nationalite'}}) }}
+                    </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center">
+                        <label >Sexe</label><br>
+                    {{ form_row(form.Sexe, {'label': ' ', 'attr':
+                        {'placeholder':'Sexe M or F'}}) }}
+                    </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col align self-center mb-3">
+                        <label >Telephone</label><br>
+                        {{ form_row(form.tel, {'label': ' ', 'attr':
+                        {'placeholder':'Telephone '}}) }}
+                        <button type="submit" class="btn btn-success btn-sm mt-3">Update</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                
             </div>
         </div>
+    </div>        
+        
     </div>
 {% endblock %}

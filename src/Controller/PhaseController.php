@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Phase;
+use App\Entity\Projet;
 use App\Form\PhaseType;
 use App\Repository\PhaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,10 +37,11 @@ class PhaseController extends AbstractController
      * @Security("is_granted('ROLE_MANAGER') or is_granted('ROLE_OWNER')")
      * @Route("/new", name="app_phase_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, PhaseRepository $phaseRepository): Response
+    public function new(Request $request, PhaseRepository $phaseRepository ): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
+        
+    
         $phase = new Phase();
         $form = $this->createForm(PhaseType::class, $phase);
         $form->handleRequest($request);

@@ -21,12 +21,28 @@
                 <tbody>
                     {% for user in users %}
                         <tr class="table-primary">
-                            <th scope="row"> 
-                            <a href=""><img class="float-left mr-3"  src="" 
-                                alt="image" style="width:100px;height:100px;"/></a></th>
-                            <td><a href="#">{{user.username}}</a></td>
-                            <td>{{user.LastName}} {{user.FirstName}}</td>
-                            <td> 
+                            {% if user.image == null %}
+                                {% if user.sexe =='M' %}
+                                    <th style="vertical-align:middle;" scope="row">
+                                    <img src="{{ asset('/ProfileImg/M.jpeg') }}" width="75"
+                                        height="75" class=" float-left mr-3 img-fluid my-2 rounded-circle" ></th>
+                                {% else %}
+                                    <th style="vertical-align:middle;" scope="row">
+                                    <img src="{{ asset('/ProfileImg/F.png') }}" width="75"
+                                        height="75" class=" float-left mr-3 img-fluid my-2 rounded-circle"></th>
+                                {% endif %}
+                            {% else %}
+                            
+                                
+                                <th style="vertical-align:middle;" scope="row">
+                                    <img class=" img-fluid my-2 rounded-circle float-left mr-3 "  
+                                        src="{{ asset('/ProfileImg/'~user.image) }}" 
+                                        alt="image" style="width:75px;height:75px;" />
+                                </th>
+                            {% endif %}
+                            <td style="vertical-align:middle;"><a href="{{ path('security_users_show' ,{"id": user.id}) }}">{{user.username}}</a></td>
+                            <td style="vertical-align:middle;">{{user.LastName}} {{user.FirstName}}</td>
+                            <td style="vertical-align:middle;"> 
                                 <a class="btn btn-primary btn-sm" 
                                 href="{{ path('security_users_show' ,{"id": user.id}) }}" role="button">
                                 Details

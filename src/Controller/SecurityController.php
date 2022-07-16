@@ -158,7 +158,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('security_profile');
             } 
       
-        return $this->render('security/editProfile.html.twig' , ['editProfileForm' => $form->createView()]);
+        return $this->render('security/editProfile.html.twig' , ['form' => $form->createView()]);
     }
 
      /**

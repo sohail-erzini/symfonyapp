@@ -14,16 +14,24 @@
 		</head>
 		<body>
 		
-			<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light"  >
+			<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"  >
 				<div class="container-fluid m-auto">
 					<div class="row" class="float-left">
-						<div class="col ml-3">
-							<a class="navbar-brand"  href="{{ path('app_home')}}">EPM</a>
-							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+						<div class="col mt-2" style="vertical-align:middle;">
+							<a class="navbar-brand" style="vertical-align:middle;" href="{{ path('app_home')}}">EPM</a>
+							{# <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
 								data-bs-target="#navbarColor03" >
 								<span class="navbar-toggler-icon"></span>
-							</button>
+							</button> #}
 						</div>
+							<div class="col-9 ">
+							<form action="{{ path('search') }}" method="get" class="d-flex">
+							<input class="form-control me-sm-2" type="search" placeholder="Search For projects" aria-label="Search"  id="projer" name="proj">
+							<button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+							</form>
+						</div>
+												
+											
 					</div>
 					<div class="row" class="float-right"> 
 						<div class="collapse navbar-collapse"  id="navbarColor03" >
@@ -37,13 +45,33 @@
 											<li class="nav-item">
 												<a class="nav-link" href="{{ path('security_profile') }}">Profile</a>
 											</li>
-									<li class="nav-item">
-
-										<form action="{{ path('search') }}" method="get" class="d-flex">
-										<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"  id="projer" name="proj">
-										<button class="btn btn-outline-success" type="submit">Search</button>
-										</form>
-									</li>
+											{% if is_granted("ROLE_OWNER") or is_granted("ROLE_MANAGER") %}
+												<li class="nav-item">
+													<a class="nav-link" href="{{ path('security_users')}}">Users
+													</a>
+												</li>
+											{% endif %}
+											
+											<li class="nav-item">
+												<a class="nav-link" href="{{ path('app_projet_index')}}">Projets
+												</a>
+											</li>
+											{% if is_granted("ROLE_OWNER") or is_granted("ROLE_MANAGER") %}
+												<li class="nav-item">
+													<a class="nav-link" href="{{ path('app_phase_index')}}">Phases
+													</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" href="{{ path('app_tache_index')}}">Taches
+													</a>
+												</li>
+											{% endif %}
+											{% if is_granted("ROLE_DEV") %}
+												<li class="nav-item">
+													<a class="nav-link" href="{{ path('app_tache_mytasks')}}">Taches
+													</a>
+												</li>
+											{% endif %}
 										{% endif %}
 									{% if not app.user %}
 										<li class="nav-item">
