@@ -36,7 +36,7 @@
                                 <td class="text-center">{{ tache.status }}</td>
                                 <td class="text-center"><a href="{{ path('app_projet_show',{"id": tache.phase.projet.id}) }}">{{ tache.phase.projet.intitule }}</a></td>
                                 <td class="text-center">{{tache.phase.intitule}}</td>
-                                <td class="text-center">{{tache.user.LastName}} {{tache.user.FirstName}}</td>
+                                <td class="text-center">{{tache.user}}</td>
                                 <td class="text-center"> 
                                     <a class="btn btn-primary btn-sm" 
                                     href="{{ path('app_tache_show',{"id": tache.id}) }}" role="button">

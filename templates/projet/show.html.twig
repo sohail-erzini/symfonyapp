@@ -67,7 +67,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col"></th>
+                            <th scope="col">Photo</th>
                             <th scope="col">Employe</th>
                             <th scope="col">FullName</th>
                             <th scope="col">Role</th>
@@ -77,9 +77,9 @@
                     <tbody>
                         {% for employee in employees %}
                             <tr class="table-primary">
-                                <th scope="row"> 
-                                <a href=""><img class="float-left mr-3"  src="" 
-                                    alt="image" style="width:100px;height:100px;"/></a></th>
+                                <th scope="row">
+                                    <img src="{{ asset('/ProfileImg/'~employee.user.image) }}" width="25"
+                                         height="25" class="img-fluid my-2 rounded-circle" >
                                 <td><a href="#">{{employee.user.username}}</a></td>
                                 <td>{{employee.user.LastName}} {{employee.user.FirstName}}</td>
                                 <td>{{employee.RoleInProjet}}</td>
