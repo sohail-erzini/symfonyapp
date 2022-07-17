@@ -69,6 +69,11 @@ class Tache
      */
     private $dateAffectation;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->livrables = new ArrayCollection();
@@ -206,6 +211,18 @@ class Tache
     public function setDateAffectation(?\DateTimeInterface $dateAffectation): self
     {
         $this->dateAffectation = $dateAffectation;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

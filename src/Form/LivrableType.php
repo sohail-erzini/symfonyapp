@@ -15,7 +15,7 @@ class LivrableType extends AbstractType
     {
         $builder
             ->add('intitule')
-            ->add('doc')
+            //->add('doc')
             ->add('DocFile',FileType::class,[
                 'label'=>'Document (PDF)',
                 'required'=>false,

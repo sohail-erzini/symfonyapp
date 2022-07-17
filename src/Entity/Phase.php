@@ -51,6 +51,11 @@ class Phase
      */
     private $dateFin;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->taches = new ArrayCollection();
@@ -152,6 +157,18 @@ class Phase
     public function setDateFin(?\DateTimeInterface $dateFin): self
     {
         $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

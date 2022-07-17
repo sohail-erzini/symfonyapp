@@ -14,6 +14,7 @@ class PhaseType extends AbstractType
         $builder
             ->add('intitule')
             ->add('projet')
+            ->add('description')
         ;
     }
 

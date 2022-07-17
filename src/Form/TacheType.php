@@ -16,6 +16,7 @@ class TacheType extends AbstractType
             ->add('priorite')
             ->add('phase')
             ->add('user')
+            ->add('description')
         ;
     }
 

@@ -23,10 +23,7 @@ class Livrable
      */
     private $intitule;
 
-    /**
-     * @ORM\Column(type="blob")
-     */
-    private $doc;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Tache::class, inversedBy="livrables")
@@ -56,17 +53,6 @@ class Livrable
         return $this;
     }
 
-    public function getDoc()
-    {
-        return $this->doc;
-    }
-
-    public function setDoc($doc): self
-    {
-        $this->doc = $doc;
-
-        return $this;
-    }
 
     public function getTache(): ?Tache
     {
