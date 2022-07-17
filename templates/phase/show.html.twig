@@ -72,7 +72,7 @@
                         {% for phaseTask in phaseTasks %}
                             <tr class="table-primary">
                                 <th scope="row"><a href="#">{{phaseTask.title}}</a></th>
-                                <td>{{phaseTask.user.LastName}} {{phaseTask.user.FirstName}}</td>
+                                <td>{{phaseTask.user.LastName|default('')}} {{phaseTask.user.FirstName|default('')}}</td>
                                 <td>{{phaseTask.status}}</td>
                                 <td> 
                                     <a class="btn btn-primary btn-sm" 

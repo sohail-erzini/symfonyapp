@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Tache;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,7 @@ class TacheType extends AbstractType
             ->add('priorite')
             ->add('phase')
             ->add('user')
-            ->add('description')
+            ->add('description', TextareaType::class)
         ;
     }
 

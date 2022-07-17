@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Projet;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +18,7 @@ class ProjetType extends AbstractType
             // ->add('dateFin')
             ->add('budget')
             // ->add('etat')
-            ->add('description')
+            ->add('description' , TextareaType::class)
             ->add('Categorie')
             ->add('client')
         ;
