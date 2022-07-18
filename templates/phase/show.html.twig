@@ -41,7 +41,7 @@
 
             </div>
             <div class="col-2 mt-3">
-            {% if is_granted("ROLE_MANAGER") or is_granted("ROLE_OWNER") %}
+            {% if is_granted("ROLE_MANAGER") %}
                 <a href="{{ path('app_phase_edit', {'id': phase.id}) }}">
                 <button type="button"  class="btn btn-success btn-sm"> <i class="fa fa-edit"></i></button></a>
 

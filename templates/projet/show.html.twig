@@ -100,10 +100,10 @@
                                 <td style="vertical-align:middle;">{{employee.RoleInProjet}}</td>
                                 <td style="vertical-align:middle;"> 
                                     <a class="btn btn-primary btn-sm" 
-                                    href="" role="button">
+                                    href="{{ path('security_users_show' , {"id": employee.user.id})  }}" role="button">
                                     <i class="fa fa-info"></i>
                                     </a>
-                                    {% if is_granted("ROLE_OWNER") %}
+                                    {% if is_granted("ROLE_OWNER")  and projet.etat == "In Progress" %}
                                     <a class="btn btn-danger btn-sm" 
                                     href="{{ path('app_user_projet_retirer' , {"id": employee.id})  }}" role="button">
                                     <i class="fa fa-remove"></i></a>
@@ -118,7 +118,7 @@
 
         <h2>Phases</h2>
         <div class="row mb-3">
-                {% if is_granted("ROLE_OWNER") %}
+                {% if is_granted("ROLE_MANAGER") and projet.etat == "In Progress" %}
                     <a href="{{ path('app_phase_new') }}"><button type="button"  
                             class="btn btn-primary btn-sm">
                                 Add Phase</button> </a>

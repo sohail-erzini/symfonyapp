@@ -53,11 +53,18 @@
 													</a>
 												</li>
 											{% endif %}
-											
+											{% if is_granted("ROLE_OWNER") %}
+											<li class="nav-item">
+												<a class="nav-link" href="{{ path('app_client_index')}}">Clients
+												</a>
+											</li>
+											{% endif %}
+											{% if is_granted("ROLE_OWNER") or is_granted("ROLE_MANAGER") or is_granted("ROLE_DEV") %}
 											<li class="nav-item">
 												<a class="nav-link" href="{{ path('app_projet_index')}}">Projets
 												</a>
 											</li>
+											{% endif %}
 											{% if is_granted("ROLE_OWNER") or is_granted("ROLE_MANAGER") %}
 												<li class="nav-item">
 													<a class="nav-link" href="{{ path('app_phase_index')}}">Phases
