@@ -34,7 +34,7 @@ class PhaseController extends AbstractController
     }
 
     /**
-     * @Security("is_granted('ROLE_MANAGER') or is_granted('ROLE_OWNER')")
+     * @Security("is_granted('ROLE_MANAGER')")
      * @Route("/new", name="app_phase_new", methods={"GET", "POST"})
      */
     public function new(Request $request, PhaseRepository $phaseRepository ): Response
@@ -76,7 +76,7 @@ class PhaseController extends AbstractController
     }
 
     /**
-     * @Security("is_granted('ROLE_MANAGER') or is_granted('ROLE_OWNER')")
+     * @Security("is_granted('ROLE_MANAGER')")
      * @Route("/{id}/edit", name="app_phase_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Phase $phase, PhaseRepository $phaseRepository): Response
@@ -98,7 +98,7 @@ class PhaseController extends AbstractController
     }
 
     /**
-     * @Security("is_granted('ROLE_MANAGER') or is_granted('ROLE_OWNER')")
+     * @Security("is_granted('ROLE_MANAGER')")
      * @Route("/{id}", name="app_phase_delete", methods={"POST"})
      */
     public function delete(Request $request, Phase $phase, PhaseRepository $phaseRepository): Response
